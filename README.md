@@ -76,13 +76,13 @@ Our generator does this in seconds!
 ### Screenshots
 
 <div align="center">
-  <img src="screenshots/1.png" alt="Main Screen" width="800"/>
+  <img src="screenshots/main.png" alt="Main Screen" width="800"/>
   <p><em>Main screen of the generator</em></p>
   
-  <img src="screenshots/2.png" alt="Generation Process" width="800"/>
+  <img src="screenshots/generation.png" alt="Generation Process" width="800"/>
   <p><em>Generation example for "lifetime" project</em></p>
   
-  <img src="screenshots/3.png" alt="Export" width="800"/>
+  <img src="screenshots/export.png" alt="Export" width="800"/>
   <p><em>Exporting results to TXT</em></p>
 </div>
 
