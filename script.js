@@ -31,66 +31,17 @@ document.addEventListener('DOMContentLoaded', function () {
   // Кнопка експорту
   const exportTxtBtn = document.getElementById('export-txt');
 
-  // Статистика
-  const statsPasswords = document.getElementById('stats-passwords');
-  const statsProjects = document.getElementById('stats-projects');
-  const statsCopied = document.getElementById('stats-copied');
-  const statsDate = document.getElementById('stats-date');
-
   // Перемикач мов
   const langButtons = document.querySelectorAll('.lang-btn');
   let currentLang = 'uk';
 
-  // Ключ для localStorage
-  const STORAGE_KEY = 'wp_generator_stats';
-
-  // Статистика
-  let stats = {
-    passwordsGenerated: 0,
-    projectsCreated: 0,
-    timesCopied: 0,
-    firstUse: new Date().toLocaleDateString('uk-UA'),
-  };
-
-  // Завантаження статистики
-  function loadStats() {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved) {
-      stats = JSON.parse(saved);
-    } else {
-      stats.firstUse = new Date().toLocaleDateString('uk-UA');
-      saveStats();
-    }
-    updateStatsDisplay();
-  }
-
-  // Збереження статистики
-  function saveStats() {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(stats));
-    updateStatsDisplay();
-  }
-
-  // Оновлення відображення статистики
-  function updateStatsDisplay() {
-    statsPasswords.textContent = stats.passwordsGenerated;
-    statsProjects.textContent = stats.projectsCreated;
-    statsCopied.textContent = stats.timesCopied;
-    statsDate.textContent = stats.firstUse;
-  }
-
-  // Додати до статистики
-  function incrementStats(stat) {
-    stats[stat]++;
-    saveStats();
-  }
-
-  // Словник перекладів (оновлений)
+  // Словник перекладів
   const translations = {
     uk: {
-      title: 'Генератор паролів для розробки WordPress сайтів', // ЗМІНЕНО
+      title: 'Генератор паролів для розробки WordPress сайтів',
       subtitle:
-        'Введіть назву проєкту та отримайте готові налаштування для бази даних та WordPress.',
-      project_label: 'Назва проєкту:',
+        'Введіть назву проекту та отримайте готові налаштування для бази даних та WordPress.',
+      project_label: 'Назва проекту:',
       generate_btn: 'Згенерувати',
       db_title: 'Налаштування бази даних (MySQL)',
       db_name: 'Назва БД:',
@@ -107,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function () {
       copy_wp: '📋 Скопіювати wp-config.php',
       footer_note:
         '⚡ Просто скопіюйте SQL у phpMyAdmin, а фрагмент для wp-config.php вставте у файл wp-config.php вашого WordPress сайту.',
-      footer_made_for: 'Створено з ❤️ для WordPress розробників', // ЗМІНЕНО
+      footer_made_for: 'Створено з ❤️ для WordPress розробників',
       refresh_title: 'Згенерувати новий пароль',
       password_settings: '🔐 Налаштування паролів:',
       simple: 'Простий (тільки літери та цифри)',
@@ -119,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function () {
       very_strong: 'Дуже сильний',
       export_txt: 'Експорт у TXT',
       guide_title: '📖 Покрокова інструкція',
-      step1_title: 'Введіть назву проєкту',
+      step1_title: 'Введіть назву проекту',
       step1_desc: 'Наприклад: lifetime, azov, myblog (можна кирилицею)',
       step2_title: 'Виберіть тип пароля',
       step2_desc: 'Простий або сильний (12 символів)',
@@ -128,16 +79,11 @@ document.addEventListener('DOMContentLoaded', function () {
       step4_title: 'Скопіюйте або експортуйте',
       step4_desc: 'Використовуйте кнопки копіювання або експорт у TXT',
       guide_tip: 'Паролі можна оновлювати окремо кнопками 🔄 біля кожного поля',
-      stats_title: '📊 Статистика використання',
-      stats_generated: 'Згенеровано паролів:',
-      stats_projects: 'Створено проєктів:',
-      stats_copied: 'Скопійовано разів:',
-      stats_since: 'Використовується з:',
-      copyright_year: '© 2026', // ДОДАНО
-      copyright_rights: 'Всі права захищено.', // ДОДАНО
+      copyright_year: '© 2026',
+      copyright_rights: 'Всі права захищено.',
     },
     en: {
-      title: 'Password generator for WordPress development', // ЗМІНЕНО
+      title: 'Password generator for WordPress development',
       subtitle:
         'Enter project name and get ready-to-use database and WordPress settings.',
       project_label: 'Project name:',
@@ -157,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function () {
       copy_wp: '📋 Copy wp-config.php',
       footer_note:
         '⚡ Simply copy the SQL into phpMyAdmin and paste the snippet for wp-config.php into the wp-config.php file of your WordPress site.',
-      footer_made_for: 'Made with ❤️ for WordPress developers', // ЗМІНЕНО
+      footer_made_for: 'Made with ❤️ for WordPress developers',
       refresh_title: 'Generate new password',
       password_settings: '🔐 Password settings:',
       simple: 'Simple (letters and numbers only)',
@@ -178,11 +124,6 @@ document.addEventListener('DOMContentLoaded', function () {
       step4_title: 'Copy or export',
       step4_desc: 'Use copy buttons or export to TXT',
       guide_tip: 'You can update passwords individually with 🔄 buttons',
-      stats_title: '📊 Usage statistics',
-      stats_generated: 'Passwords generated:',
-      stats_projects: 'Projects created:',
-      stats_copied: 'Times copied:',
-      stats_since: 'Using since:',
       copyright_year: '© 2026',
       copyright_rights: 'All rights reserved.',
     },
@@ -373,11 +314,26 @@ document.addEventListener('DOMContentLoaded', function () {
   // Функція для очищення назви проекту
   function sanitizeProjectName(name) {
     let translitName = transliterate(name);
-    return translitName
+    // Дозволяємо тільки літери, цифри, дефіси (тимчасово)
+    let cleanName = translitName
       .toLowerCase()
       .replace(/[^a-z0-9-]/g, '-')
       .replace(/-+/g, '-')
       .replace(/^-|-$/g, '');
+
+    return cleanName;
+  }
+
+  // Функція для отримання baseName для БД (з нижнім підкресленням)
+  function getDbBaseName(projectName) {
+    // Замінюємо дефіси на нижні підкреслення для БД
+    return projectName.replace(/-/g, '_');
+  }
+
+  // Функція для отримання baseName для WordPress (з дефісом)
+  function getWpBaseName(projectName) {
+    // Залишаємо як є (з дефісами)
+    return projectName;
   }
 
   // Функція для генерації wp-config фрагменту
@@ -402,16 +358,25 @@ document.addEventListener('DOMContentLoaded', function () {
   function generateAll() {
     let projectName = projectInput.value.trim() || 'lifetime';
     const cleanName = sanitizeProjectName(projectName);
+
+    // Якщо після очищення нічого не залишилось, використовуємо 'project'
     const baseName = cleanName || 'project';
 
-    const dbName = baseName + '_db';
-    const dbUser = baseName + '_user';
+    // Отримуємо різні версії для БД та WordPress
+    const dbBaseName = getDbBaseName(baseName); // з нижнім підкресленням
+    const wpBaseName = getWpBaseName(baseName); // з дефісом (як ввів користувач)
+
+    // Генерація для бази даних (з нижнім підкресленням)
+    const dbName = dbBaseName + '_db';
+    const dbUser = dbBaseName + '_user';
     const dbPass = generatePassword();
 
-    const wpSite = baseName + '-site';
-    const wpUser = baseName + '-admin';
+    // Генерація для WordPress (з дефісом)
+    const wpSite = wpBaseName + '-site';
+    const wpUser = wpBaseName + '-admin';
     const wpPass = generatePassword();
 
+    // Оновлення DOM
     dbNameEl.textContent = dbName;
     dbUserEl.textContent = dbUser;
     dbPassEl.textContent = dbPass;
@@ -422,9 +387,6 @@ document.addEventListener('DOMContentLoaded', function () {
     updateSQLSummary(dbName, dbUser, dbPass);
     updateWpConfigSummary(dbName, dbUser, dbPass);
     updatePasswordStrengthIndicators();
-
-    incrementStats('passwordsGenerated');
-    incrementStats('projectsCreated');
   }
 
   // Оновлення SQL фрагменту
@@ -450,7 +412,6 @@ document.addEventListener('DOMContentLoaded', function () {
         const successMessage =
           currentLang === 'uk' ? '✅ Скопійовано!' : '✅ Copied!';
         button.textContent = successMessage;
-        incrementStats('timesCopied');
         setTimeout(() => {
           button.textContent = originalText;
         }, 2000);
@@ -493,7 +454,6 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // Ініціалізація
-  loadStats();
   generateAll();
   changeLanguage('uk');
 
@@ -514,7 +474,6 @@ document.addEventListener('DOMContentLoaded', function () {
     updateSQLSummary(dbNameEl.textContent, dbUserEl.textContent, newPass);
     updateWpConfigSummary(dbNameEl.textContent, dbUserEl.textContent, newPass);
     updatePasswordStrength(newPass, dbStrengthBar, dbStrengthText);
-    incrementStats('passwordsGenerated');
   });
 
   // Оновлення пароля для WordPress
@@ -522,7 +481,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const newPass = generatePassword();
     wpPassEl.textContent = newPass;
     updatePasswordStrength(newPass, wpStrengthBar, wpStrengthText);
-    incrementStats('passwordsGenerated');
   });
 
   // Оновлення при зміні типу пароля
