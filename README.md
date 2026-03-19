@@ -69,10 +69,6 @@ Our generator does this in seconds!
 
 ---
 
-## 🚀 Demo
-
-**[View Demo](#)** – *insert GitHub Pages link*
-
 ### Screenshots
 
 <div align="center">
@@ -98,20 +94,3 @@ https://ovcharovcoder.github.io/wp-password-generator/)
 4. Click "Generate"
 5. Copy SQL or wp-config.php snippet
 6. Export data to TXT if needed
-
-### Local Usage
-```bash
-# Clone the repository
-git clone https://github.com/yourusername/wp-password-generator.git
-
-# Navigate to directory
-cd wp-password-generator
-
-# Open index.html in browser
-open index.html  # for macOS
-# or
-start index.html # for Windows
-# or
-xdg-open index.html # for Linux
-
-https://ovcharovcoder.github.io/wp-password-generator/
