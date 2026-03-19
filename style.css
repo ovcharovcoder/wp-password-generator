@@ -531,6 +531,8 @@ h3 {
   max-width: 800px;
   margin: 0 auto;
   text-align: center;
+  margin-top: 30;
+  margin-bottom: 0;
 }
 
 .footer-text {
@@ -553,6 +555,13 @@ h3 {
   line-height: 1.6;
 }
 
+.copyright-content {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  padding-block: 20px;
+}
+
 .linkedin-link {
   color: #0077b5;
   text-decoration: none;
@@ -560,19 +569,30 @@ h3 {
   transition: all 0.3s ease;
   position: relative;
   display: inline-block;
+  transition: all 0.3s ease;
+}
+
+.copyright-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 20px 0 0;
+  color: #718096;
+  font-size: 0.9em;
+}
+
+.copyright-year,
+.copyright-rights {
+  color: #718096;
+}
+
+.copyright-rights {
+  display: inline-block;
 }
 
 .linkedin-link:hover {
   color: #005582;
-  text-decoration: underline;
-}
-
-.linkedin-link::after {
-  content: '🔗';
-  font-size: 0.8em;
-  margin-left: 4px;
-  opacity: 0;
-  transition: opacity 0.3s ease;
 }
 
 .linkedin-link:hover::after {
@@ -805,12 +825,29 @@ h3 {
   .copyright {
     font-size: 0.8em;
     display: flex;
-    flex-direction: column;
     gap: 5px;
+    align-items: center;
+    justify-content: center;
   }
 
-  .copyright span {
+  .copyright-wrapper {
+    flex-direction: column;
+    gap: 5px;
+    text-align: center;
+    padding-bottom: 10px;
+  }
+
+  .copyright-year,
+  .linkedin-link,
+  .copyright-rights {
     display: block;
+  }
+
+  .copyright-content {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
   }
 
   .linkedin-link {
