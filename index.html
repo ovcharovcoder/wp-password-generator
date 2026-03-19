@@ -16,7 +16,7 @@
 
       <h1 data-i18n="title">Генератор паролів для розробки WordPress сайтів</h1>
       <p data-i18n="subtitle">
-        Введіть назву проєкту та отримайте готові налаштування для бази даних та
+        Введіть назву проекту та отримайте готові налаштування для бази даних та
         WordPress.
       </p>
 
@@ -30,7 +30,7 @@
               <span class="step-icon">✏️</span>
             </div>
             <div class="step-content">
-              <h4 data-i18n="step1_title">Введіть назву проєкту</h4>
+              <h4 data-i18n="step1_title">Введіть назву проекту</h4>
               <p data-i18n="step1_desc">
                 Наприклад: lifetime, azov, myblog (можна кирилицею)
               </p>
@@ -79,7 +79,7 @@
 
       <div class="input-group">
         <label for="project-name" data-i18n="project_label"
-          >Назва проєкту:</label
+          >Назва проекту:</label
         >
         <input
           type="text"
@@ -213,9 +213,11 @@ GRANT ALL PRIVILEGES ON lifetime_db.* TO 'lifetime_user'@'localhost';
 FLUSH PRIVILEGES;
                 </pre
           >
-          <button id="copy-sql" class="copy-btn" data-i18n="copy_sql">
-            📋 Скопіювати SQL
-          </button>
+          <div class="code-section-footer">
+            <button id="copy-sql" class="copy-btn" data-i18n="copy_sql">
+              📋 Скопіювати SQL
+            </button>
+          </div>
         </div>
 
         <!-- wp-config.php фрагмент -->
@@ -241,9 +243,11 @@ define( 'DB_CHARSET', 'utf8mb4' );
 define( 'DB_COLLATE', '' );
                 </pre
           >
-          <button id="copy-wp-config" class="copy-btn" data-i18n="copy_wp">
-            📋 Скопіювати wp-config.php
-          </button>
+          <div class="code-section-footer">
+            <button id="copy-wp-config" class="copy-btn" data-i18n="copy_wp">
+              📋 Скопіювати wp-config.php
+            </button>
+          </div>
         </div>
       </div>
 
@@ -262,44 +266,13 @@ define( 'DB_COLLATE', '' );
         </p>
       </div>
 
-      <!-- Статистика та футер -->
+      <!-- Футер (без статистики) -->
       <footer class="site-footer">
         <div class="footer-content">
-          <div class="stats-section">
-            <h3 data-i18n="stats_title">📊 Статистика використання</h3>
-            <div class="stats-grid">
-              <div class="stat-item">
-                <span class="stat-label" data-i18n="stats_generated"
-                  >Згенеровано паролів:</span
-                >
-                <span class="stat-value" id="stats-passwords">0</span>
-              </div>
-              <div class="stat-item">
-                <span class="stat-label" data-i18n="stats_projects"
-                  >Створено проектів:</span
-                >
-                <span class="stat-value" id="stats-projects">0</span>
-              </div>
-              <div class="stat-item">
-                <span class="stat-label" data-i18n="stats_copied"
-                  >Скопійовано разів:</span
-                >
-                <span class="stat-value" id="stats-copied">0</span>
-              </div>
-              <div class="stat-item">
-                <span class="stat-label" data-i18n="stats_since"
-                  >Використовується з:</span
-                >
-                <span class="stat-value" id="stats-date">2026</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="footer-divider"></div>
-
           <p class="footer-text" data-i18n="footer_made_for">
             Створено з ❤️ для WordPress розробників
           </p>
+          <div class="footer-divider"></div>
           <p class="copyright">
             <span data-i18n="copyright_year">© 2026</span>
             <a
