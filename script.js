@@ -89,8 +89,8 @@ document.addEventListener('DOMContentLoaded', function () {
     uk: {
       title: 'Генератор паролів для розробки WordPress сайтів', // ЗМІНЕНО
       subtitle:
-        'Введіть назву проекту та отримайте готові налаштування для бази даних та WordPress.',
-      project_label: 'Назва проекту:',
+        'Введіть назву проєкту та отримайте готові налаштування для бази даних та WordPress.',
+      project_label: 'Назва проєкту:',
       generate_btn: 'Згенерувати',
       db_title: 'Налаштування бази даних (MySQL)',
       db_name: 'Назва БД:',
@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', function () {
       very_strong: 'Дуже сильний',
       export_txt: 'Експорт у TXT',
       guide_title: '📖 Покрокова інструкція',
-      step1_title: 'Введіть назву проекту',
+      step1_title: 'Введіть назву проєкту',
       step1_desc: 'Наприклад: lifetime, azov, myblog (можна кирилицею)',
       step2_title: 'Виберіть тип пароля',
       step2_desc: 'Простий або сильний (12 символів)',
