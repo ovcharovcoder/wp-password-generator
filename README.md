@@ -15,11 +15,11 @@
 
 ---
 
-## 📋 About The Project
+## 📋 About the project
 
-**WP Password Generator** is a free web tool created to simplify the workflow of WordPress developers. It automatically generates unique database names, usernames, and secure passwords when migrating sites to a new hosting.
+**WP Password generator** is a free web tool created to simplify the workflow of WordPress developers. It automatically generates unique database names, usernames, and secure passwords when migrating sites to a new hosting.
 
-### 🎯 The Problem It Solves
+### 🎯 The problem it solves
 
 Every developer faces the need to:
 - Come up with unique database names
@@ -33,7 +33,7 @@ Our generator does this in seconds!
 
 ## ✨ Features
 
-### 🔑 Generated Data
+### 🔑 Generated data
 | Component | Format | Example |
 |-----------|--------|---------|
 | Database Name | `{project}_db` | `lifetime_db` |
@@ -51,21 +51,21 @@ Our generator does this in seconds!
 
 ✅ **Transliteration** – support for Ukrainian project names
 
-✅ **Strength Indicator** – visual representation of password security
+✅ **Strength indicator** – visual representation of password security
 
-✅ **Ready-to-Use Code Snippets**
+✅ **Ready-to-Use code snippets**
 - SQL for database creation
 - Section for wp-config.php
 
-✅ **TXT Export** – save all data to a text file
+✅ **TXT export** – save all data to a text file
 
-✅ **Usage Statistics** – track the number of generated passwords
+✅ **Usage statistics** – track the number of generated passwords
 
-✅ **Bilingual Interface** – Ukrainian and English languages
+✅ **Bilingual interface** – Ukrainian and English languages
 
-✅ **Step-by-Step Guide** – for beginners
+✅ **Step-by-Step guide** – for beginners
 
-✅ **Responsive Design** – displays correctly on all devices
+✅ **Responsive design** – displays correctly on all devices
 
 ---
 
@@ -84,9 +84,9 @@ Our generator does this in seconds!
 
 ---
 
-## 💻 How to Use
+## 💻 How to use
 
-### Online Version
+### Online version
 1. Go to [WP Password Generator](
 https://ovcharovcoder.github.io/wp-password-generator/)
 2. Enter the project name (e.g., "lifetime", "azov", "myblog")
