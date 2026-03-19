@@ -777,7 +777,7 @@ h3 {
   }
 
   .code-section {
-    padding: 15px;
+    padding: 10px;
     min-height: 280px;
   }
 
@@ -820,6 +820,13 @@ h3 {
 
   .step-icon {
     display: none;
+  }
+
+  .interactive-guide,
+  .input-group,
+  .password-settings,
+  .result-section {
+    padding: 10px;
   }
 }
 
