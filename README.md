@@ -10,7 +10,6 @@
   ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white)
   ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)
   
-  [Demo](#) • [Report Bug](https://github.com/yourusername/wp-password-generator/issues) • [Suggest Idea](https://github.com/yourusername/wp-password-generator/issues)
   
 </div>
 
