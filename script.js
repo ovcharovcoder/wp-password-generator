@@ -466,7 +466,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // Функція експорту в TXT
   function exportToTXT() {
     const content =
-      `=== WP Migration Generator Export ===\n\n` +
+      `=== WP Password Generator Export ===\n\n` +
       `Project: ${projectInput.value}\n\n` +
       `=== Database Settings ===\n` +
       `DB Name: ${dbNameEl.textContent}\n` +
