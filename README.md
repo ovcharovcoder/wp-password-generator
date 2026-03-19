@@ -58,8 +58,6 @@ Our generator does this in seconds!
 
 ✅ **TXT export** – save all data to a text file
 
-✅ **Usage statistics** – track the number of generated passwords
-
 ✅ **Bilingual interface** – Ukrainian and English languages
 
 ✅ **Step-by-Step guide** – for beginners
