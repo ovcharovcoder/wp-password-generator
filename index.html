@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WP Password Generator | Генератор паролів для WordPress</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Перемикач мов -->
+      <div class="language-switcher">
+        <button class="lang-btn active" data-lang="uk">Українська</button>
+        <button class="lang-btn" data-lang="en">English</button>
+      </div>
+
+      <h1 data-i18n="title">Генератор паролів для розробки WordPress сайтів</h1>
+      <p data-i18n="subtitle">
+        Введіть назву проекту та отримайте готові налаштування для бази даних та
+        WordPress.
+      </p>
+
+      <!-- Інтерактивна інструкція -->
+      <div class="interactive-guide">
+        <h3 data-i18n="guide_title">📖 Покрокова інструкція</h3>
+        <div class="guide-steps">
+          <div class="step" data-step="1">
+            <div class="step-marker">
+              <span class="step-number">1</span>
+              <span class="step-icon">✏️</span>
+            </div>
+            <div class="step-content">
+              <h4 data-i18n="step1_title">Введіть назву проекту</h4>
+              <p data-i18n="step1_desc">
+                Наприклад: lifetime, azov, myblog (можна кирилицею)
+              </p>
+            </div>
+          </div>
+          <div class="step" data-step="2">
+            <div class="step-marker">
+              <span class="step-number">2</span>
+              <span class="step-icon">⚙️</span>
+            </div>
+            <div class="step-content">
+              <h4 data-i18n="step2_title">Виберіть тип пароля</h4>
+              <p data-i18n="step2_desc">Простий або сильний (12 символів)</p>
+            </div>
+          </div>
+          <div class="step" data-step="3">
+            <div class="step-marker">
+              <span class="step-number">3</span>
+              <span class="step-icon">🔄</span>
+            </div>
+            <div class="step-content">
+              <h4 data-i18n="step3_title">Натисніть "Згенерувати"</h4>
+              <p data-i18n="step3_desc">Отримайте готові налаштування</p>
+            </div>
+          </div>
+          <div class="step" data-step="4">
+            <div class="step-marker">
+              <span class="step-number">4</span>
+              <span class="step-icon">📋</span>
+            </div>
+            <div class="step-content">
+              <h4 data-i18n="step4_title">Скопіюйте або експортуйте</h4>
+              <p data-i18n="step4_desc">
+                Використовуйте кнопки копіювання або експорт у TXT
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="guide-tip">
+          <span class="tip-icon">💡</span>
+          <span data-i18n="guide_tip"
+            >Паролі можна оновлювати окремо кнопками 🔄 біля кожного поля</span
+          >
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label for="project-name" data-i18n="project_label"
+          >Назва проекту:</label
+        >
+        <input
+          type="text"
+          id="project-name"
+          placeholder="lifetime, mynewsite, azov"
+          value="lifetime"
+        />
+        <button id="generate-btn" data-i18n="generate_btn">Згенерувати</button>
+      </div>
+
+      <!-- Налаштування паролів -->
+      <div class="password-settings">
+        <h3 data-i18n="password_settings">🔐 Налаштування паролів:</h3>
+        <div class="password-options">
+          <label>
+            <input type="radio" name="password-type" value="simple" checked />
+            <span data-i18n="simple">Простий (тільки літери та цифри)</span>
+          </label>
+          <label>
+            <input type="radio" name="password-type" value="strong" />
+            <span data-i18n="strong">Сильний (з спецсимволами)</span>
+          </label>
+        </div>
+        <div class="password-note">
+          <span data-i18n="password_note">⚡ Довжина пароля: 12 символів</span>
+        </div>
+      </div>
+
+      <div class="results-grid">
+        <!-- База даних -->
+        <div class="result-section">
+          <h2 data-i18n="db_title">Налаштування бази даних (MySQL)</h2>
+          <div class="result-item">
+            <span class="label" data-i18n="db_name">Назва БД:</span>
+            <code id="db-name">lifetime_db</code>
+            <button class="copy-btn" data-copy="db-name" data-i18n="copy_btn">
+              📋 Копіювати
+            </button>
+          </div>
+          <div class="result-item">
+            <span class="label" data-i18n="db_user">Користувач БД:</span>
+            <code id="db-user">lifetime_user</code>
+            <button class="copy-btn" data-copy="db-user" data-i18n="copy_btn">
+              📋 Копіювати
+            </button>
+          </div>
+          <div class="result-item">
+            <span class="label" data-i18n="db_password">Пароль БД:</span>
+            <code id="db-pass">453hs89w5h</code>
+            <button class="copy-btn" data-copy="db-pass" data-i18n="copy_btn">
+              📋 Копіювати
+            </button>
+            <button
+              id="refresh-db-pass"
+              class="refresh-btn"
+              title="Згенерувати новий пароль"
+            >
+              🔄
+            </button>
+          </div>
+          <!-- Індикатор складності пароля для БД -->
+          <div class="password-strength" id="db-strength-container">
+            <div class="strength-meter">
+              <div
+                class="strength-bar"
+                id="db-strength-bar"
+                style="width: 0%"
+              ></div>
+            </div>
+            <span class="strength-text" id="db-strength-text" data-i18n="weak"
+              >Слабкий</span
+            >
+          </div>
+        </div>
+
+        <!-- WordPress -->
+        <div class="result-section">
+          <h2 data-i18n="wp_title">Налаштування WordPress (wp-config.php)</h2>
+          <div class="result-item">
+            <span class="label" data-i18n="wp_site">Назва сайту (URL):</span>
+            <code id="wp-site">lifetime-site</code>
+            <button class="copy-btn" data-copy="wp-site" data-i18n="copy_btn">
+              📋 Копіювати
+            </button>
+          </div>
+          <div class="result-item">
+            <span class="label" data-i18n="wp_user">Користувач (admin):</span>
+            <code id="wp-user">lifetime-admin</code>
+            <button class="copy-btn" data-copy="wp-user" data-i18n="copy_btn">
+              📋 Копіювати
+            </button>
+          </div>
+          <div class="result-item">
+            <span class="label" data-i18n="wp_password">Пароль:</span>
+            <code id="wp-pass">123еs87w4x</code>
+            <button class="copy-btn" data-copy="wp-pass" data-i18n="copy_btn">
+              📋 Копіювати
+            </button>
+            <button
+              id="refresh-wp-pass"
+              class="refresh-btn"
+              title="Згенерувати новий пароль"
+            >
+              🔄
+            </button>
+          </div>
+          <!-- Індикатор складності пароля для WP -->
+          <div class="password-strength" id="wp-strength-container">
+            <div class="strength-meter">
+              <div
+                class="strength-bar"
+                id="wp-strength-bar"
+                style="width: 0%"
+              ></div>
+            </div>
+            <span class="strength-text" id="wp-strength-text" data-i18n="weak"
+              >Слабкий</span
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="code-blocks">
+        <!-- SQL фрагмент -->
+        <div class="code-section">
+          <h3 data-i18n="sql_title">📊 SQL для створення бази даних:</h3>
+          <pre id="sql-summary">
+CREATE DATABASE lifetime_db;
+CREATE USER 'lifetime_user'@'localhost' IDENTIFIED BY '453hs89w5h';
+GRANT ALL PRIVILEGES ON lifetime_db.* TO 'lifetime_user'@'localhost';
+FLUSH PRIVILEGES;
+                </pre
+          >
+          <button id="copy-sql" class="copy-btn" data-i18n="copy_sql">
+            📋 Скопіювати SQL
+          </button>
+        </div>
+
+        <!-- wp-config.php фрагмент -->
+        <div class="code-section">
+          <h3 data-i18n="wp_config_title">🔧 Фрагмент для wp-config.php:</h3>
+          <pre id="wp-config-summary">
+/** The name of the database for WordPress */
+define( 'DB_NAME', 'lifetime_db' );
+
+/** Database username */
+define( 'DB_USER', 'lifetime_user' );
+
+/** Database password */
+define( 'DB_PASSWORD', '453hs89w5h' );
+
+/** Database hostname */
+define( 'DB_HOST', 'localhost' );
+
+/** Database charset to use in creating database tables. */
+define( 'DB_CHARSET', 'utf8mb4' );
+
+/** The database collate type. Don't change this if in doubt. */
+define( 'DB_COLLATE', '' );
+                </pre
+          >
+          <button id="copy-wp-config" class="copy-btn" data-i18n="copy_wp">
+            📋 Скопіювати wp-config.php
+          </button>
+        </div>
+      </div>
+
+      <!-- Кнопка експорту в TXT -->
+      <div class="export-section">
+        <button id="export-txt" class="export-btn">
+          <span class="btn-icon">📄</span>
+          <span data-i18n="export_txt">Експорт у TXT</span>
+        </button>
+      </div>
+
+      <div class="footer-note">
+        <p data-i18n="footer_note">
+          ⚡ Просто скопіюйте SQL у phpMyAdmin, а фрагмент для wp-config.php
+          вставте у файл wp-config.php вашого WordPress сайту.
+        </p>
+      </div>
+
+      <!-- Статистика та футер -->
+      <footer class="site-footer">
+        <div class="footer-content">
+          <div class="stats-section">
+            <h3 data-i18n="stats_title">📊 Статистика використання</h3>
+            <div class="stats-grid">
+              <div class="stat-item">
+                <span class="stat-label" data-i18n="stats_generated"
+                  >Згенеровано паролів:</span
+                >
+                <span class="stat-value" id="stats-passwords">0</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label" data-i18n="stats_projects"
+                  >Створено проектів:</span
+                >
+                <span class="stat-value" id="stats-projects">0</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label" data-i18n="stats_copied"
+                  >Скопійовано разів:</span
+                >
+                <span class="stat-value" id="stats-copied">0</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label" data-i18n="stats_since"
+                  >Використовується з:</span
+                >
+                <span class="stat-value" id="stats-date">2026</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="footer-divider"></div>
+
+          <p class="footer-text" data-i18n="footer_made_for">
+            Створено з ❤️ для WordPress розробників
+          </p>
+          <p class="copyright">
+            <span data-i18n="copyright_year">© 2026</span>
+            <a
+              href="https://www.linkedin.com/in/andrii-ovcharov-101a24196/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="linkedin-link"
+            >
+              Andrii Ovcharov
+            </a>
+            <span data-i18n="copyright_rights">. Всі права захищено.</span>
+          </p>
+        </div>
+      </footer>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
