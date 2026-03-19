@@ -1,10 +1,8 @@
-# wp-password-generator
-
 # 🔐 WP Password Generator
 
 <div align="center">
   
-  ### Генератор паролів та налаштувань для WordPress розробників
+  ### Password and Settings Generator for WordPress Developers
   
   [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
   [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
@@ -12,108 +10,108 @@
   ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white)
   ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)
   
-  [Демо](#) • [Повідомити про помилку](https://github.com/yourusername/wp-password-generator/issues) • [Запропонувати ідею](https://github.com/yourusername/wp-password-generator/issues)
+  [Demo](#) • [Report Bug](https://github.com/yourusername/wp-password-generator/issues) • [Suggest Idea](https://github.com/yourusername/wp-password-generator/issues)
   
 </div>
 
 ---
 
-## 📋 Про проект
+## 📋 About The Project
 
-**WP Password Generator** – це безкоштовний веб-інструмент, створений для полегшення роботи WordPress розробників. Він автоматично генерує унікальні імена для баз даних, користувачів та безпечні паролі при перенесенні сайтів на новий хостинг.
+**WP Password Generator** is a free web tool created to simplify the workflow of WordPress developers. It automatically generates unique database names, usernames, and secure passwords when migrating sites to a new hosting.
 
-### 🎯 Проблема, яку вирішує інструмент
+### 🎯 The Problem It Solves
 
-Кожен розробник стикається з необхідністю:
-- Вигадувати унікальні назви для баз даних
-- Створювати імена користувачів БД
-- Генерувати безпечні паролі
-- Оновлювати wp-config.php
+Every developer faces the need to:
+- Come up with unique database names
+- Create database usernames
+- Generate secure passwords
+- Update wp-config.php
 
-Наш генератор робить це за лічені секунди!
+Our generator does this in seconds!
 
 ---
 
-## ✨ Можливості
+## ✨ Features
 
-### 🔑 Генерація даних
-| Компонент | Формат | Приклад |
+### 🔑 Generated Data
+| Component | Format | Example |
 |-----------|--------|---------|
-| Назва БД | `{project}_db` | `lifetime_db` |
-| Користувач БД | `{project}_user` | `lifetime_user` |
-| Пароль БД | 12 символів | `k8J#mP2$nL5x` |
-| Назва сайту | `{project}-site` | `lifetime-site` |
-| Користувач WordPress | `{project}-admin` | `lifetime-admin` |
-| Пароль WordPress | 12 символів | `xR7@qW3!eK9p` |
+| Database Name | `{project}_db` | `lifetime_db` |
+| Database User | `{project}_user` | `lifetime_user` |
+| Database Password | 12 characters | `k8J#mP2$nL5x` |
+| Site Name | `{project}-site` | `lifetime-site` |
+| WordPress User | `{project}-admin` | `lifetime-admin` |
+| WordPress Password | 12 characters | `xR7@qW3!eK9p` |
 
-### 🛠 Функціонал
+### 🛠 Functionality
 
-✅ **Два типи паролів**
-- Простий (тільки літери та цифри)
-- Сильний (з спецсимволами)
+✅ **Two Password Types**
+- Simple (letters and numbers only)
+- Strong (with special characters)
 
-✅ **Транслітерація** – підтримка українських назв проектів
+✅ **Transliteration** – support for Ukrainian project names
 
-✅ **Індикатор складності** – візуальне відображення надійності пароля
+✅ **Strength Indicator** – visual representation of password security
 
-✅ **Готові фрагменти коду**
-- SQL для створення бази даних
-- Секція для wp-config.php
+✅ **Ready-to-Use Code Snippets**
+- SQL for database creation
+- Section for wp-config.php
 
-✅ **Експорт у TXT** – збереження всіх даних у текстовий файл
+✅ **TXT Export** – save all data to a text file
 
-✅ **Статистика використання** – відстеження кількості згенерованих паролів
+✅ **Usage Statistics** – track the number of generated passwords
 
-✅ **Двомовний інтерфейс** – українська та англійська мови
+✅ **Bilingual Interface** – Ukrainian and English languages
 
-✅ **Покрокова інструкція** – для новачків
+✅ **Step-by-Step Guide** – for beginners
 
-✅ **Адаптивний дизайн** – коректно відображається на всіх пристроях
+✅ **Responsive Design** – displays correctly on all devices
 
 ---
 
-## 🚀 Демо
+## 🚀 Demo
 
-**[Подивитися демо](#)** – *вставте посилання на GitHub Pages*
+**[View Demo](#)** – *insert GitHub Pages link*
 
-### Скріншоти
+### Screenshots
 
 <div align="center">
-  <img src="screenshots/main.png" alt="Головний екран" width="800"/>
-  <p><em>Головний екран генератора</em></p>
+  <img src="screenshots/main.png" alt="Main Screen" width="800"/>
+  <p><em>Main screen of the generator</em></p>
   
-  <img src="screenshots/generation.png" alt="Процес генерації" width="800"/>
-  <p><em>Приклад генерації для проекту "lifetime"</em></p>
+  <img src="screenshots/generation.png" alt="Generation Process" width="800"/>
+  <p><em>Generation example for "lifetime" project</em></p>
   
-  <img src="screenshots/export.png" alt="Експорт" width="800"/>
-  <p><em>Експорт результатів у TXT</em></p>
+  <img src="screenshots/export.png" alt="Export" width="800"/>
+  <p><em>Exporting results to TXT</em></p>
 </div>
 
 ---
 
-## 💻 Як використовувати
+## 💻 How to Use
 
-### Онлайн версія
-1. Перейдіть за посиланням [wp-password-generator](#)
-2. Введіть назву проекту (наприклад, "lifetime", "azov", "myblog")
-3. Виберіть тип пароля (простий або сильний)
-4. Натисніть "Згенерувати"
-5. Скопіюйте SQL або фрагмент wp-config.php
-6. За потреби експортуйте дані у TXT
+### Online Version
+1. Go to [wp-password-generator](#)
+2. Enter the project name (e.g., "lifetime", "azov", "myblog")
+3. Choose password type (simple or strong)
+4. Click "Generate"
+5. Copy SQL or wp-config.php snippet
+6. Export data to TXT if needed
 
-### Локальне використання
+### Local Usage
 ```bash
-# Клонувати репозиторій
+# Clone the repository
 git clone https://github.com/yourusername/wp-password-generator.git
 
-# Перейти в директорію
+# Navigate to directory
 cd wp-password-generator
 
-# Відкрити index.html у браузері
-open index.html  # для macOS
-# або
-start index.html # для Windows
-# або
-xdg-open index.html # для Linux
+# Open index.html in browser
+open index.html  # for macOS
+# or
+start index.html # for Windows
+# or
+xdg-open index.html # for Linux
 
 https://ovcharovcoder.github.io/wp-password-generator/
