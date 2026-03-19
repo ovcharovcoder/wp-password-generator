@@ -2,7 +2,7 @@
 
 <div align="center">
   
-  ### Password and Settings Generator for WordPress Developers
+  ### Password and settings generator for WordPress developers
   
   [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
   [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
