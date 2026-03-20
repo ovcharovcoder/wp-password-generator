@@ -5,39 +5,39 @@
 }
 
 :root {
-  /* Основні кольори */
-  --primary: #667eea;
-  --primary-dark: #5a67d8;
-  --secondary: #48bb78;
-  --secondary-dark: #38a169;
-  --danger: #f56565;
-  --warning: #ed8936;
-  --yellow: #ecc94b;
-  --success: #48bb78;
+  /* Основні кольори - м'які, приємні для очей */
+  --primary: #5a67d8;
+  --primary-dark: #4c51bf;
+  --secondary: #9f7aea;
+  --secondary-dark: #805ad5;
+  --danger: #fc8181;
+  --warning: #f6ad55;
+  --yellow: #fbbf24;
+  --success: #68d391;
 
   /* Фонові кольори */
-  --bg-gradient-start: #667eea;
-  --bg-gradient-end: #764ba2;
-  --bg-white: #ffffff;
-  --bg-light: #f8fafc;
-  --bg-light-blue: #f0f5ff;
-  --bg-dark: #1e293b;
-  --bg-darker: #0f172a;
-  --bg-code: #2d3748;
+  --bg-gradient-start: #1a202c;
+  --bg-gradient-end: #2d3748;
+  --bg-white: rgba(255, 255, 255, 0.95);
+  --bg-light: rgba(247, 250, 252, 0.9);
+  --bg-light-blue: rgba(90, 103, 216, 0.05);
+  --bg-dark: #1f2937;
+  --bg-darker: #111827;
+  --bg-code: #1e293b;
 
   /* Кольори тексту */
-  --text-primary: #333333;
-  --text-secondary: #444444;
-  --text-muted: #718096;
-  --text-dark: #2d3748;
+  --text-primary: #1a202c;
+  --text-secondary: #2d3748;
+  --text-muted: #4a5568;
+  --text-dark: #1a202c;
   --text-light: #e2e8f0;
-  --text-code: #a5f3fc;
+  --text-code: #a0aec0;
 
   /* Кольори меж */
   --border-light: #e2e8f0;
   --border-medium: #cbd5e0;
-  --border-dark: #334155;
-  --border-blue: #c3dafe;
+  --border-dark: #4a5568;
+  --border-blue: #cbd5e0;
 
   /* Спеціальні кольори */
   --code-bg: #0f172a;
@@ -57,17 +57,18 @@
 
   /* Тіні */
   --shadow-sm: 0 0.25rem 0.375rem rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 0.5rem 0.9375rem rgba(102, 126, 234, 0.15);
+  --shadow-md: 0 0.5rem 0.9375rem rgba(90, 103, 216, 0.15);
   --shadow-lg: 0 1.875rem 3.75rem rgba(0, 0, 0, 0.15);
-  --shadow-primary: 0 0.25rem 0.75rem rgba(102, 126, 234, 0.3);
-  --shadow-success: 0 0.25rem 0.375rem rgba(72, 187, 120, 0.2);
-  --shadow-success-hover: 0 0.5rem 0.9375rem rgba(72, 187, 120, 0.3);
+  --shadow-primary: 0 0.25rem 0.75rem rgba(90, 103, 216, 0.3);
+  --shadow-success: 0 0.25rem 0.375rem rgba(104, 211, 145, 0.2);
+  --shadow-success-hover: 0 0.5rem 0.9375rem rgba(104, 211, 145, 0.3);
 
   /* Анімації */
   --transition-fast: all 0.2s;
   --transition-normal: all 0.3s;
 }
 
+/* ========== БАЗОВІ СТИЛІ ========== */
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: linear-gradient(
@@ -81,61 +82,255 @@ body {
   align-items: center;
   padding: 0.9375rem;
   margin: 0;
+  position: relative;
+  overflow-x: hidden;
 }
 
+/* Основний фоновий шар з сіткою */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image:
+    linear-gradient(rgba(137, 148, 247, 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(183, 191, 255, 0.12) 1px, transparent 1px);
+  background-size: 50px 50px;
+  pointer-events: none;
+  z-index: 0;
+  animation: subtleGridMove 8s linear infinite;
+}
+
+/* Додатковий шар для хвильового ефекту (світліші області) */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background:
+    radial-gradient(
+      circle at 30% 40%,
+      rgba(90, 103, 216, 0.08) 0%,
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 70% 80%,
+      rgba(159, 122, 234, 0.08) 0%,
+      transparent 40%
+    ),
+    radial-gradient(
+      circle at 50% 20%,
+      rgba(90, 103, 216, 0.06) 0%,
+      transparent 35%
+    );
+  pointer-events: none;
+  z-index: 0;
+  animation: glowWave 12s ease-in-out infinite;
+}
+
+/* Повільний рух сітки */
+@keyframes subtleGridMove {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(50px, 50px);
+  }
+}
+
+/* Плавне переміщення світлих областей */
+@keyframes glowWave {
+  0% {
+    opacity: 0.3;
+    background-position: 0% 0%;
+  }
+  25% {
+    opacity: 0.5;
+    background-position: 10% 20%;
+  }
+  50% {
+    opacity: 0.6;
+    background-position: 30% 40%;
+  }
+  75% {
+    opacity: 0.4;
+    background-position: 20% 10%;
+  }
+  100% {
+    opacity: 0.3;
+    background-position: 0% 0%;
+  }
+}
+
+/* Третій шар для додаткової глибини */
+.background-aura {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 30px,
+    rgba(90, 103, 216, 0.02) 30px,
+    rgba(90, 103, 216, 0.02) 60px
+  );
+  pointer-events: none;
+  z-index: 0;
+  animation: rotateAura 40s linear infinite;
+}
+
+@keyframes rotateAura {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  100% {
+    transform: rotate(360deg) scale(1.2);
+  }
+}
+
+/* ========== КОНТЕЙНЕР ========== */
 .container {
   background-color: var(--bg-white);
+  backdrop-filter: blur(10px);
   border-radius: 1.25rem;
   box-shadow: var(--shadow-lg);
   padding: 1.875rem;
   max-width: 87.5rem;
   width: 100%;
   position: relative;
+  z-index: 1;
+  transition: var(--transition-normal);
 }
 
-/* Стилі для перемикача мов */
-.language-switcher {
-  position: absolute;
-  top: 1.25rem;
-  right: 1.875rem;
+/* ========== ЛОГОТИП ========== */
+.logo-container {
   display: flex;
-  gap: 0.5rem;
-  z-index: 100;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-light);
+  position: relative;
+}
+
+.logo-circle {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: rotateLogo 12s linear infinite;
+}
+
+@keyframes rotateLogo {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.logo-circle svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 0 8px rgba(90, 103, 216, 0.3));
+}
+
+.logo-text {
+  flex: 1;
+  max-width: 420px;
+}
+
+.logo-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 0;
+  background: linear-gradient(135deg, #4c51bf, #9f7aea);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: 1px;
+}
+
+.logo-subtitle {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin: 0.25rem 0 0 0;
+  letter-spacing: 0.5px;
+}
+
+/* ========== ПЕРЕМИКАЧ МОВ (у стилі кнопок) ========== */
+.language-switcher {
+  display: flex;
+  gap: 0.75rem;
+  margin-left: auto;
 }
 
 .lang-btn {
-  padding: 0.375rem 0.75rem;
-  border: 0.125rem solid var(--border-light);
-  background: var(--bg-white);
-  border-radius: var(--border-radius-full);
+  padding: 0.5rem 1.25rem;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  border: none;
+  border-radius: 0.625rem;
   font-size: 0.85em;
   font-weight: 600;
   cursor: pointer;
   transition: var(--transition-normal);
-  color: #4a5568;
+  color: white;
   display: flex;
   align-items: center;
   gap: 0.25rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.lang-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+}
+
+.lang-btn:hover::before {
+  left: 100%;
 }
 
 .lang-btn:hover {
-  border-color: var(--primary);
-  background: #f7fafc;
+  transform: translateY(-0.125rem);
+  box-shadow: var(--shadow-primary);
 }
 
 .lang-btn.active {
-  background: var(--primary);
-  border-color: var(--primary);
-  color: white;
+  background: linear-gradient(
+    135deg,
+    var(--primary-dark),
+    var(--secondary-dark)
+  );
+  box-shadow: 0 4px 12px rgba(90, 103, 216, 0.4);
 }
 
-h1 {
+/* ========== ЗАГОЛОВКИ ========== */
+.site-description {
+  font-size: 1.8rem;
   color: var(--text-primary);
   margin-top: 0;
   margin-bottom: 0.625rem;
-  font-size: 2em;
   font-weight: 600;
-  padding-right: 12.5rem;
   line-height: 1.3;
 }
 
@@ -145,7 +340,18 @@ h2 {
   margin-top: 0;
   margin-bottom: 0.9375rem;
   padding-bottom: 0.5rem;
-  border-bottom: 0.125rem solid #eaeef2;
+  border-bottom: 0.125rem solid var(--border-light);
+  position: relative;
+}
+
+h2::after {
+  content: '';
+  position: absolute;
+  bottom: -0.125rem;
+  left: 0;
+  width: 50px;
+  height: 0.125rem;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
 }
 
 h3 {
@@ -157,13 +363,24 @@ h3 {
   gap: 0.5rem;
 }
 
-/* Стилі для інтерактивної інструкції */
+/* ========== ІНТЕРАКТИВНА ІНСТРУКЦІЯ ========== */
 .interactive-guide {
-  background: linear-gradient(135deg, #f8fafc 0%, #edf2f7 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(247, 250, 252, 0.9),
+    rgba(237, 242, 247, 0.9)
+  );
   border-radius: var(--border-radius-xl);
   padding: 1.25rem;
   margin: 0.9375rem 0 1.5625rem;
   border: 0.0625rem solid var(--border-light);
+  backdrop-filter: blur(5px);
+  transition: var(--transition-normal);
+}
+
+.interactive-guide:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--primary);
 }
 
 .guide-steps {
@@ -176,16 +393,18 @@ h3 {
 .step {
   display: flex;
   gap: 0.75rem;
-  background: var(--bg-white);
+  background: rgba(255, 255, 255, 0.8);
   padding: 0.75rem;
   border-radius: var(--border-radius-lg);
   box-shadow: var(--shadow-sm);
   transition: var(--transition-normal);
+  backdrop-filter: blur(5px);
 }
 
 .step:hover {
   transform: translateY(-0.1875rem);
   box-shadow: var(--shadow-md);
+  background: white;
 }
 
 .step-marker {
@@ -198,7 +417,7 @@ h3 {
 .step-number {
   width: 1.5rem;
   height: 1.5rem;
-  background: var(--primary);
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
   color: white;
   border-radius: 50%;
   display: flex;
@@ -206,6 +425,7 @@ h3 {
   justify-content: center;
   font-weight: 600;
   font-size: 0.8em;
+  box-shadow: 0 0 8px rgba(90, 103, 216, 0.3);
 }
 
 .step-icon {
@@ -247,6 +467,7 @@ h3 {
   font-size: 1.2em;
 }
 
+/* ========== ГРУПА ВВЕДЕННЯ ========== */
 .input-group {
   background-color: var(--bg-light);
   padding: 1.5625rem;
@@ -257,6 +478,7 @@ h3 {
   flex-wrap: wrap;
   align-items: center;
   border: 0.0625rem solid var(--border-light);
+  backdrop-filter: blur(5px);
 }
 
 .input-group label {
@@ -274,18 +496,19 @@ h3 {
   border-radius: 0.625rem;
   font-size: 1em;
   transition: var(--transition-normal);
+  background: white;
 }
 
 .input-group input:focus {
   outline: none;
   border-color: var(--primary);
-  box-shadow: 0 0 0 0.1875rem rgba(102, 126, 234, 0.1);
+  box-shadow: 0 0 0 0.1875rem rgba(90, 103, 216, 0.2);
 }
 
 .input-group button {
   flex: 0 0 auto;
   padding: 0.75rem 2.1875rem;
-  background: var(--primary);
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
   color: white;
   border: none;
   border-radius: 0.625rem;
@@ -294,25 +517,44 @@ h3 {
   cursor: pointer;
   transition: var(--transition-normal);
   letter-spacing: 0.0313rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.input-group button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  transition: left 0.5s ease;
 }
 
 .input-group button:hover {
-  background: var(--primary-dark);
   transform: translateY(-0.0625rem);
   box-shadow: var(--shadow-primary);
 }
 
-/* Стилі для налаштувань паролів */
+/* ========== НАЛАШТУВАННЯ ПАРОЛІВ ========== */
 .password-settings {
-  background: var(--bg-light-blue);
+  background: rgba(90, 103, 216, 0.05);
   padding: 1.125rem 1.25rem;
   border-radius: var(--border-radius-lg);
   margin: 0.9375rem 0;
-  border: 0.0625rem solid var(--border-blue);
+  border: 0.0625rem solid var(--border-light);
   display: flex;
   align-items: center;
   flex-wrap: wrap;
   gap: 1.25rem;
+  backdrop-filter: blur(5px);
 }
 
 .password-settings h3 {
@@ -334,6 +576,13 @@ h3 {
   cursor: pointer;
   color: #4a5568;
   font-size: 0.9em;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--border-radius-full);
+  transition: var(--transition-fast);
+}
+
+.password-options label:hover {
+  background: rgba(90, 103, 216, 0.1);
 }
 
 .password-options input[type='radio'] {
@@ -344,15 +593,17 @@ h3 {
 
 .password-note {
   margin-left: auto;
-  background: var(--primary);
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
   color: white;
   padding: 0.3125rem 0.75rem;
   border-radius: var(--border-radius-full);
   font-size: 0.85em;
   font-weight: 500;
   white-space: nowrap;
+  box-shadow: 0 0 8px rgba(90, 103, 216, 0.3);
 }
 
+/* ========== РЕЗУЛЬТАТИ ========== */
 .results-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -365,6 +616,13 @@ h3 {
   padding: 1.25rem;
   border-radius: var(--border-radius-lg);
   border: 0.0625rem solid var(--border-light);
+  backdrop-filter: blur(5px);
+  transition: var(--transition-normal);
+}
+
+.result-section:hover {
+  border-color: var(--primary);
+  box-shadow: var(--shadow-md);
 }
 
 .result-item {
@@ -372,7 +630,7 @@ h3 {
   align-items: center;
   margin-bottom: 0.75rem;
   padding: 0.625rem;
-  background-color: var(--bg-white);
+  background-color: white;
   border-radius: var(--border-radius-md);
   border: 0.0625rem solid var(--border-light);
   transition: var(--transition-fast);
@@ -382,7 +640,7 @@ h3 {
 
 .result-item:hover {
   border-color: var(--primary);
-  box-shadow: 0 0.125rem 0.5rem rgba(102, 126, 234, 0.1);
+  box-shadow: 0 0 12px rgba(90, 103, 216, 0.15);
 }
 
 .label {
@@ -396,15 +654,15 @@ h3 {
 .result-item code {
   flex: 1;
   font-family: 'Fira Code', 'Courier New', monospace;
-  background-color: #edf2f7;
+  background: linear-gradient(135deg, #f5f5ff, #ffffff);
   padding: 0.375rem 0.625rem;
   border-radius: var(--border-radius-sm);
   font-size: 0.9em;
-  color: #c53030;
+  color: #4c51bf;
   margin: 0 0.625rem;
   overflow-x: auto;
   white-space: nowrap;
-  border: 0.0625rem solid var(--border-medium);
+  border: 0.0625rem solid var(--border-light);
   min-width: 7.5rem;
 }
 
@@ -417,7 +675,7 @@ h3 {
   padding: 0.375rem 0.75rem;
   border-radius: var(--border-radius-sm);
   transition: var(--transition-fast);
-  background-color: var(--bg-white);
+  background-color: white;
   color: #4a5568;
   font-weight: 500;
   display: inline-flex;
@@ -427,9 +685,11 @@ h3 {
 }
 
 .copy-btn:hover {
-  background-color: var(--primary);
-  border-color: var(--primary);
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  border-color: transparent;
   color: white;
+  transform: translateY(-0.0625rem);
+  box-shadow: 0 2px 8px rgba(90, 103, 216, 0.3);
 }
 
 .refresh-btn {
@@ -438,16 +698,18 @@ h3 {
 }
 
 .refresh-btn:hover {
-  background-color: var(--secondary);
-  border-color: var(--secondary);
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  border-color: transparent;
   color: white;
+  transform: translateY(-0.0625rem);
+  box-shadow: 0 2px 8px rgba(90, 103, 216, 0.3);
 }
 
-/* Стилі для індикатора складності пароля */
+/* ========== ІНДИКАТОР СКЛАДНОСТІ ========== */
 .password-strength {
   margin-top: 0.5rem;
   padding: 0.5rem;
-  background: var(--bg-white);
+  background: white;
   border-radius: var(--border-radius-md);
   border: 0.0625rem solid var(--border-light);
 }
@@ -473,6 +735,7 @@ h3 {
   font-weight: 600;
 }
 
+/* ========== КОДОВІ БЛОКИ ========== */
 .code-blocks {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -492,6 +755,32 @@ h3 {
   width: 100%;
   max-width: 100%;
   overflow: hidden;
+  position: relative;
+}
+
+.code-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    var(--primary),
+    var(--secondary),
+    var(--primary)
+  );
+  animation: scanLine 3s linear infinite;
+}
+
+@keyframes scanLine {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
 }
 
 .code-section h3 {
@@ -530,7 +819,7 @@ h3 {
 }
 
 .code-section .copy-btn {
-  background-color: var(--bg-code);
+  background-color: #2d3748;
   border-color: #4a5568;
   color: var(--text-light);
   width: 100%;
@@ -541,12 +830,12 @@ h3 {
 }
 
 .code-section .copy-btn:hover {
-  background-color: var(--secondary);
-  border-color: var(--secondary);
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  border-color: transparent;
   color: white;
 }
 
-/* Стилі для секції експорту */
+/* ========== ЕКСПОРТ ========== */
 .export-section {
   display: flex;
   justify-content: center;
@@ -555,7 +844,7 @@ h3 {
 
 .export-btn {
   padding: 0.75rem 2.5rem;
-  background: linear-gradient(145deg, var(--secondary), var(--secondary-dark));
+  background: linear-gradient(135deg, var(--secondary), var(--primary));
   border: none;
   border-radius: 3.125rem;
   font-size: 1.1em;
@@ -568,12 +857,32 @@ h3 {
   justify-content: center;
   gap: 0.5rem;
   box-shadow: var(--shadow-success);
-  border: 0.0625rem solid #2f855a;
+  border: 0.0625rem solid rgba(255, 255, 255, 0.2);
   min-width: 12.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.export-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+}
+
+.export-btn:hover::before {
+  left: 100%;
 }
 
 .export-btn:hover {
-  background: linear-gradient(145deg, var(--secondary-dark), #2f855a);
   transform: translateY(-0.125rem);
   box-shadow: var(--shadow-success-hover);
 }
@@ -583,12 +892,18 @@ h3 {
   line-height: 1;
 }
 
+/* ========== ФУТЕР ========== */
 .footer-note {
   margin: 1.5625rem 0;
   padding: 0.9375rem 1.125rem;
-  background-color: #ebf4ff;
+  background: linear-gradient(
+    135deg,
+    rgb(35 47 156 / 18%),
+    rgba(159, 122, 234, 0.08)
+  );
   border-radius: 0.625rem;
   border-left: 0.25rem solid var(--primary);
+  backdrop-filter: blur(5px);
 }
 
 .footer-note p {
@@ -600,7 +915,6 @@ h3 {
   gap: 0.5rem;
 }
 
-/* Футер */
 .site-footer {
   margin-top: 2.5rem;
   padding-top: 1.5625rem;
@@ -631,7 +945,7 @@ h3 {
   margin: 0.9375rem 0;
 }
 
-/* Стилі для копірайту */
+/* ========== КОПІРАЙТ ========== */
 .copyright-wrapper {
   display: flex;
   justify-content: center;
@@ -660,7 +974,7 @@ h3 {
   text-decoration: underline;
 }
 
-/* Скролбар для кодів */
+/* ========== СКРОЛБАР ========== */
 .code-section pre::-webkit-scrollbar {
   height: 0.375rem;
   width: 0.375rem;
@@ -672,24 +986,72 @@ h3 {
 }
 
 .code-section pre::-webkit-scrollbar-thumb {
-  background: #4a5568;
+  background: var(--primary);
   border-radius: 0.1875rem;
 }
 
 .code-section pre::-webkit-scrollbar-thumb:hover {
-  background: var(--primary);
+  background: var(--secondary);
+}
+
+.logo-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 0;
+  background: linear-gradient(135deg, #4c51bf, #9f7aea, #4c51bf);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: 1px;
+  display: inline-block;
+  border-right: 3px solid #5a67d8;
+  padding-right: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+  animation:
+    typeWriter 1.5s steps(22) forwards,
+    gradientShift 3s ease infinite,
+    blinkCursor 0.75s step-end infinite;
+  animation-delay: 0s, 0s, 1.5s;
+}
+
+@keyframes typeWriter {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes blinkCursor {
+  from,
+  to {
+    border-right-color: #5a67d8;
+  }
+  50% {
+    border-right-color: transparent;
+  }
 }
 
 /* ========== АДАПТИВНІСТЬ ========== */
-
 @media screen and (max-width: 1024px) {
   .container {
     padding: 1.5625rem;
-  }
-
-  h1 {
-    font-size: 1.8em;
-    padding-right: 11.25rem;
   }
 
   .guide-steps {
@@ -710,16 +1072,27 @@ h3 {
     padding: 1.25rem;
   }
 
-  .language-switcher {
-    position: static;
-    justify-content: flex-end;
-    margin-bottom: 0.9375rem;
+  .logo-container {
+    flex-wrap: wrap;
+    gap: 0.75rem;
   }
 
-  h1 {
-    font-size: 1.6em;
-    padding-right: 0;
-    margin-top: 0;
+  .logo-text {
+    order: 1;
+    flex: 1;
+  }
+
+  .language-switcher {
+    order: 2;
+    margin-left: 0;
+  }
+
+  .logo-title {
+    font-size: 1.3rem;
+  }
+
+  .site-description {
+    font-size: 1.4rem;
   }
 
   .input-group {
@@ -787,13 +1160,8 @@ h3 {
     padding: 0.9375rem;
   }
 
-  h1 {
-    font-size: 1.4em;
-    line-height: 1.4;
-  }
-
-  h2 {
-    font-size: 1.2em;
+  .logo-circle {
+    display: none;
   }
 
   .guide-steps {
@@ -897,6 +1265,10 @@ h3 {
   .result-section {
     padding: 0.625rem;
   }
+
+  .logo-text {
+    margin-bottom: 10px;
+  }
 }
 
 @media screen and (max-width: 380px) {
@@ -904,12 +1276,21 @@ h3 {
     padding: 0.625rem;
   }
 
-  h1 {
-    font-size: 1.2em;
+  .logo-circle {
+    width: 40px;
+    height: 40px;
+  }
+
+  .logo-title {
+    font-size: 1.1rem;
+  }
+
+  .logo-subtitle {
+    font-size: 0.6rem;
   }
 
   .lang-btn {
-    padding: 0.25rem 0.375rem;
+    padding: 10px 20px;
     font-size: 0.7em;
   }
 
