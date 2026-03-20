@@ -78,13 +78,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
       db_title: 'Налаштування бази даних (MySQL)',
       db_name: 'Назва БД:',
-      db_user: 'Користувач БД:',
-      db_password: 'Пароль БД:',
+      db_user: "Ім'я користувача:",
+      db_password: 'Пароль:',
 
-      wp_title: 'Налаштування WordPress (wp-config.php)',
-      wp_site: 'Назва сайту (URL):',
-      wp_user: 'WP Користувач:',
-      wp_password: 'WP Пароль:',
+      wp_title: 'Налаштування WordPress',
+      wp_site: 'Назва сайту:',
+      wp_user: "Ім'я користувача:",
+      wp_password: 'Пароль:',
 
       sql_title: '📊 SQL для створення бази даних:',
       wp_config_title: '🔧 Фрагмент для wp-config.php:',
@@ -157,13 +157,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
       db_title: 'Database settings (MySQL)',
       db_name: 'DB Name:',
-      db_user: 'DB Username:',
-      db_password: 'DB Password:',
+      db_user: 'Username:',
+      db_password: 'Password:',
 
-      wp_title: 'WordPress settings (wp-config.php)',
-      wp_site: 'Site URL:',
-      wp_user: 'WP Username:',
-      wp_password: 'WP Password:',
+      wp_title: 'WordPress settings',
+      wp_site: 'Site Title:',
+      wp_user: 'Username:',
+      wp_password: 'Password:',
 
       sql_title: '📊 SQL for database creation:',
       wp_config_title: '🔧 wp-config.php snippet:',
