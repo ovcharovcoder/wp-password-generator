@@ -91,3 +91,15 @@ https://ovcharovcoder.github.io/wp-password-generator/)
 4. Click "Generate"
 5. Copy SQL or wp-config.php snippet
 6. Export data to TXT if needed
+
+---
+
+## 📄 License
+
+MIT License
+
+---
+
+## 👨‍💻 Author
+
+Created by Andrii Ovcharov — Web Developer & Designer
