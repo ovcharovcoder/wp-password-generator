@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
         'Введіть назву проєкту та отримайте готові налаштування для бази даних та WordPress.',
       guide_title: '📖 Покрокова інструкція',
       step1_title: 'Введіть назву проєкту',
-      step1_desc: 'Наприклад: lifetime, azov, myblog (можна кирилицею)',
+      step1_desc: 'Наприклад: мій сайт, мій блог, (можна кирилицею)',
       step2_title: 'Виберіть тип пароля',
       step2_desc: 'Простий або сильний (12 символів)',
       step3_title: 'Натисніть "Згенерувати"',
@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       guide_title: '📖 Step-by-step guide',
       step1_title: 'Enter project name',
-      step1_desc: 'Example: lifetime, azov, myblog (Cyrillic supported)',
+      step1_desc: 'Example: myblog, mysite',
       step2_title: 'Choose password type',
       step2_desc: 'Simple or strong (12 characters)',
       step3_title: 'Click "Generate"',
@@ -215,6 +215,83 @@ document.addEventListener('DOMContentLoaded', function () {
     return str.replace(/'/g, "\\'");
   }
 
+  // ===================== ТРАНСЛІТЕРАЦІЯ =====================
+  function transliterate(word) {
+    const map = {
+      а: 'a',
+      б: 'b',
+      в: 'v',
+      г: 'h',
+      ґ: 'g',
+      д: 'd',
+      е: 'e',
+      є: 'ye',
+      ж: 'zh',
+      з: 'z',
+      и: 'y',
+      і: 'i',
+      ї: 'yi',
+      й: 'y',
+      к: 'k',
+      л: 'l',
+      м: 'm',
+      н: 'n',
+      о: 'o',
+      п: 'p',
+      р: 'r',
+      с: 's',
+      т: 't',
+      у: 'u',
+      ф: 'f',
+      х: 'kh',
+      ц: 'ts',
+      ч: 'ch',
+      ш: 'sh',
+      щ: 'shch',
+      ь: '',
+      ю: 'yu',
+      я: 'ya',
+      А: 'a',
+      Б: 'b',
+      В: 'v',
+      Г: 'h',
+      Ґ: 'g',
+      Д: 'd',
+      Е: 'e',
+      Є: 'ye',
+      Ж: 'zh',
+      З: 'z',
+      И: 'y',
+      І: 'i',
+      Ї: 'yi',
+      Й: 'y',
+      К: 'k',
+      Л: 'l',
+      М: 'm',
+      Н: 'n',
+      О: 'o',
+      П: 'p',
+      Р: 'r',
+      С: 's',
+      Т: 't',
+      У: 'u',
+      Ф: 'f',
+      Х: 'kh',
+      Ц: 'ts',
+      Ч: 'ch',
+      Ш: 'sh',
+      Щ: 'shch',
+      Ь: '',
+      Ю: 'yu',
+      Я: 'ya',
+    };
+
+    return word
+      .split('')
+      .map(char => map[char] || char)
+      .join('');
+  }
+
   // ===================== PASSWORD =====================
   function generatePassword() {
     const selected = document.querySelector(
@@ -299,15 +376,20 @@ document.addEventListener('DOMContentLoaded', function () {
     return suffix;
   }
 
+  // ВИПРАВЛЕНО: додано транслітерацію перед обробкою
   function sanitizeProjectName(name) {
-    return (
-      name
-        .toLowerCase()
-        .replace(/[^a-z0-9-]/g, '-')
-        .replace(/-+/g, '-')
-        .replace(/^-|-$/g, '')
-        .slice(0, 30) || 'project'
-    );
+    // Спочатку транслітеруємо кирилицю
+    const transliterated = transliterate(name);
+    // Потім обробляємо
+    const cleaned = transliterated
+      .toLowerCase()
+      .replace(/[^a-z0-9-]/g, '-')
+      .replace(/-+/g, '-')
+      .replace(/^-|-$/g, '')
+      .slice(0, 30);
+
+    // Якщо після очищення нічого не залишилось, повертаємо 'project'
+    return cleaned || 'project';
   }
 
   function getDbBaseName(name) {
@@ -371,7 +453,8 @@ require_once ABSPATH . 'wp-settings.php';`;
   }
 
   function generateAll() {
-    const clean = sanitizeProjectName(projectInput.value.trim() || 'project');
+    const rawName = projectInput.value.trim();
+    const clean = sanitizeProjectName(rawName);
     const dbBase = getDbBaseName(clean);
     const suffix = generateSuffix();
 
