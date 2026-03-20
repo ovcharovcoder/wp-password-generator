@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-  // ===================== ПЕРЕВІРКА CRYPTO API =====================
+  // ===================== CRYPTO API CHECK =====================
   if (!window.crypto || !window.crypto.getRandomValues) {
     alert(
       'Ваш браузер не підтримує сучасні криптографічні функції. Будь ласка, оновіть браузер.',
@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const langButtons = document.querySelectorAll('.lang-btn');
   let currentLang = 'en';
 
-  // ===================== СТАН =====================
+  // ===================== STATE =====================
   let generatedSalts = null; // Кешуємо солі
   let currentDbPass = '';
   let currentWpPass = '';
@@ -236,7 +236,7 @@ document.addEventListener('DOMContentLoaded', function () {
     return arr;
   }
 
-  // escapeSQL тільки для рядкових значень (паролі, коментарі)
+  // escapeSQL only for string values ​​(passwords, comments)
   function escapeSQL(str) {
     return str
       .replace(/\\/g, '\\\\')
@@ -468,7 +468,6 @@ document.addEventListener('DOMContentLoaded', function () {
     currentWpPass = data.wpPass;
   }
 
-  // ВИПРАВЛЕНО: для ідентифікаторів використовуємо backticks, для пароля escapeSQL
   function updateSQLSummary(dbName, dbUser, dbPass) {
     if (sqlSummaryEl) {
       sqlSummaryEl.textContent = `${translations[currentLang].sql_comment_create}
@@ -488,7 +487,6 @@ ${translations[currentLang].sql_comment_important}`;
     }
   }
 
-  // ВИПРАВЛЕНО: для wp-config.php не використовуємо escapeSQL для пароля
   function updateWpConfigSummary(dbName, dbUser, dbPass) {
     if (wpConfigSummaryEl) {
       wpConfigSummaryEl.textContent = `<?php
@@ -531,16 +529,16 @@ require_once ABSPATH . 'wp-settings.php';`;
   }
 
   function generateAll() {
-    // 1. Будуємо дані
+    // 1. Building data
     const projectData = buildProjectData();
 
-    // 2. Скидаємо солі ПЕРЕД генерацією wp-config
+    // 2. We reset the salts BEFORE generating wp-config
     resetSalts();
 
     // 3. Відображаємо дані в DOM
     renderProjectData(projectData);
 
-    // 4. Оновлюємо SQL та wp-config з новими даними
+    // 4. Updating SQL and wp-config with new data
     updateSQLSummary(
       projectData.dbName,
       projectData.dbUser,
@@ -552,7 +550,7 @@ require_once ABSPATH . 'wp-settings.php';`;
       projectData.dbPass,
     );
 
-    // 5. Оновлюємо індикатори складності
+    // 5. Updating difficulty indicators
     updatePasswordStrengthIndicators();
   }
 
