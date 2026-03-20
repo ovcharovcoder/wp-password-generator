@@ -73,7 +73,7 @@ Our generator does this in seconds!
   <p><em>Main screen of the generator</em></p>
   
   <img src="screenshots/generation.png" alt="Generation Process" width="800"/>
-  <p><em>Generation example for "lifetime" project</em></p>
+  <p><em>Generation example for "mysite" project</em></p>
   
   <img src="screenshots/export.png" alt="Export" width="800"/>
   <p><em>Exporting results to TXT</em></p>
