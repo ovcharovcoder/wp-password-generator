@@ -86,7 +86,7 @@ Our generator does this in seconds!
 ### Online version
 1. Go to [WP Password Generator](
 https://ovcharovcoder.github.io/wp-password-generator/)
-2. Enter the project name (e.g., "lifetime", "azov", "myblog")
+2. Enter the project name (e.g., "project")
 3. Choose password type (simple or strong)
 4. Click "Generate"
 5. Copy SQL or wp-config.php snippet
