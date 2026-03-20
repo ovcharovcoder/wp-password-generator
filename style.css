@@ -1088,7 +1088,7 @@ h3 {
   }
 
   .logo-title {
-    font-size: 1.3rem;
+    font-size: 1.5625rem;
   }
 
   .site-description {
@@ -1269,6 +1269,61 @@ h3 {
   .logo-text {
     margin-bottom: 10px;
   }
+
+  /* Відключення анімацій */
+  body::before {
+    animation: none;
+  }
+  body::after {
+    animation: none;
+    opacity: 0.3;
+  }
+  .background-aura {
+    animation: none;
+  }
+  .logo-circle {
+    animation: none;
+  }
+  .code-section::before {
+    animation: none;
+  }
+  .logo-title {
+    animation: gradientShift 3s ease infinite;
+    white-space: normal;
+    width: auto;
+    border-right: none;
+  }
+  .logo-title::after {
+    display: none;
+  }
+  .step:hover,
+  .result-item:hover,
+  .copy-btn:hover,
+  .refresh-btn:hover,
+  .export-btn:hover,
+  .lang-btn:hover,
+  .input-group button:hover {
+    transform: none;
+  }
+  .input-group button::before,
+  .export-btn::before,
+  .lang-btn::before {
+    animation: none;
+    display: none;
+  }
+
+  .logo-container {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    flex-direction: column;
+    justify-content: left;
+    align-items: flex-start;
+}
+
+@media screen and (max-width: 420px) {
+.logo-title {
+  font-size: 1.375rem;
+}
 }
 
 @media screen and (max-width: 380px) {
@@ -1282,7 +1337,7 @@ h3 {
   }
 
   .logo-title {
-    font-size: 1.1rem;
+    font-size: 1.25rem;
   }
 
   .logo-subtitle {
