@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const langButtons = document.querySelectorAll('.lang-btn');
   let currentLang = 'en';
 
-  // ===================== ПЕРЕКЛАДИ =====================
+  // ===================== TRANSLATIONS =====================
   const translations = {
     uk: {
       title: 'Генератор паролів для розробки WordPress сайтів',
@@ -215,7 +215,7 @@ document.addEventListener('DOMContentLoaded', function () {
     return str.replace(/'/g, "\\'");
   }
 
-  // ===================== ТРАНСЛІТЕРАЦІЯ =====================
+  // ===================== TRANSLITERATION =====================
   function transliterate(word) {
     const map = {
       а: 'a',
