@@ -1,4 +1,12 @@
 document.addEventListener('DOMContentLoaded', function () {
+  // ===================== ПЕРЕВІРКА CRYPTO API =====================
+  if (!window.crypto || !window.crypto.getRandomValues) {
+    alert(
+      'Ваш браузер не підтримує сучасні криптографічні функції. Будь ласка, оновіть браузер.',
+    );
+    throw new Error('Crypto API not supported');
+  }
+
   // ===================== DOM =====================
   const projectInput = document.getElementById('project-name');
   const generateBtn = document.getElementById('generate-btn');
@@ -29,6 +37,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
   const langButtons = document.querySelectorAll('.lang-btn');
   let currentLang = 'en';
+
+  // ===================== СТАН =====================
+  let generatedSalts = null; // Кешуємо солі
+  let currentDbPass = '';
+  let currentWpPass = '';
+
+  // ===================== HELPER =====================
+  function getPasswordType() {
+    const selected = document.querySelector(
+      'input[name="password-type"]:checked',
+    );
+    return selected ? selected.value : 'strong';
+  }
 
   // ===================== TRANSLATIONS =====================
   const translations = {
@@ -191,12 +212,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // ===================== SECURITY =====================
   function secureRandomInt(max) {
-    if (!crypto || !crypto.getRandomValues) {
-      throw new Error('Secure random generator not supported');
-    }
     const arr = new Uint32Array(1);
-    crypto.getRandomValues(arr);
-    return arr[0] % max;
+    const limit = Math.floor(0xffffffff / max) * max;
+    let rand;
+
+    do {
+      crypto.getRandomValues(arr);
+      rand = arr[0];
+    } while (rand >= limit);
+
+    return rand % max;
   }
 
   function getRandomChar(chars) {
@@ -211,8 +236,15 @@ document.addEventListener('DOMContentLoaded', function () {
     return arr;
   }
 
+  // escapeSQL тільки для рядкових значень (паролі, коментарі)
   function escapeSQL(str) {
-    return str.replace(/'/g, "\\'");
+    return str
+      .replace(/\\/g, '\\\\')
+      .replace(/'/g, "''")
+      .replace(/\n/g, '\\n')
+      .replace(/\r/g, '\\r')
+      .replace(/\0/g, '\\0')
+      .replace(/\x1a/g, '\\Z');
   }
 
   // ===================== TRANSLITERATION =====================
@@ -293,12 +325,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // ===================== PASSWORD =====================
-  function generatePassword() {
-    const selected = document.querySelector(
-      'input[name="password-type"]:checked',
-    );
-    const type = selected ? selected.value : 'strong';
-
+  function generatePassword(type) {
     const lower = 'abcdefghijklmnopqrstuvwxyz';
     const upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     const numbers = '0123456789';
@@ -355,7 +382,6 @@ document.addEventListener('DOMContentLoaded', function () {
     let block = `/**
  * WordPress Security Keys & Salts
  * Generated with cryptographically secure random generator
- * https://api.wordpress.org/secret-key/1.1/salt/
  */
 `;
 
@@ -366,29 +392,42 @@ document.addEventListener('DOMContentLoaded', function () {
     return block;
   }
 
+  function getSaltsBlock() {
+    if (generatedSalts) return generatedSalts;
+    generatedSalts = generateSaltsBlock();
+    return generatedSalts;
+  }
+
   // ===================== GENERATION =====================
   function generateSuffix() {
     const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
     let suffix = '';
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < 6; i++) {
       suffix += getRandomChar(chars);
     }
     return suffix;
   }
 
-  // ВИПРАВЛЕНО: додано транслітерацію перед обробкою
+  function generateUniqueSuffixes() {
+    const suffixes = new Set();
+
+    while (suffixes.size < 3) {
+      suffixes.add(generateSuffix());
+    }
+
+    const [dbSuffix, userSuffix, wpSuffix] = [...suffixes];
+    return { dbSuffix, userSuffix, wpSuffix };
+  }
+
   function sanitizeProjectName(name) {
-    // Спочатку транслітеруємо кирилицю
     const transliterated = transliterate(name);
-    // Потім обробляємо
     const cleaned = transliterated
       .toLowerCase()
       .replace(/[^a-z0-9-]/g, '-')
       .replace(/-+/g, '-')
       .replace(/^-|-$/g, '')
-      .slice(0, 30);
+      .slice(0, 45);
 
-    // Якщо після очищення нічого не залишилось, повертаємо 'project'
     return cleaned || 'project';
   }
 
@@ -396,6 +435,40 @@ document.addEventListener('DOMContentLoaded', function () {
     return name.replace(/-/g, '_');
   }
 
+  // ===================== DATA MODEL =====================
+  function buildProjectData() {
+    const rawName = projectInput.value.trim();
+    const baseName = rawName === '' ? 'project' : rawName;
+    const clean = sanitizeProjectName(baseName);
+    const dbBase = getDbBaseName(clean);
+    const passwordType = getPasswordType();
+    const { dbSuffix, userSuffix, wpSuffix } = generateUniqueSuffixes();
+
+    return {
+      projectName: clean,
+      dbName: `${dbBase}_${dbSuffix}_db`,
+      dbUser: `${dbBase}_${userSuffix}_user`,
+      dbPass: generatePassword(passwordType),
+      wpSite: `${clean}-site`,
+      wpUser: `${clean}-${wpSuffix}-admin`,
+      wpPass: generatePassword(passwordType),
+      passwordType,
+    };
+  }
+
+  function renderProjectData(data) {
+    dbNameEl.textContent = data.dbName;
+    dbUserEl.textContent = data.dbUser;
+    dbPassEl.textContent = data.dbPass;
+    wpSiteEl.textContent = data.wpSite;
+    wpUserEl.textContent = data.wpUser;
+    wpPassEl.textContent = data.wpPass;
+
+    currentDbPass = data.dbPass;
+    currentWpPass = data.wpPass;
+  }
+
+  // ВИПРАВЛЕНО: для ідентифікаторів використовуємо backticks, для пароля escapeSQL
   function updateSQLSummary(dbName, dbUser, dbPass) {
     if (sqlSummaryEl) {
       sqlSummaryEl.textContent = `${translations[currentLang].sql_comment_create}
@@ -403,11 +476,11 @@ CREATE DATABASE IF NOT EXISTS \`${dbName}\`
   CHARACTER SET utf8mb4
   COLLATE utf8mb4_unicode_ci;
 
-CREATE USER IF NOT EXISTS '${dbUser}'@'localhost'
-  IDENTIFIED BY '${dbPass}';
+CREATE USER IF NOT EXISTS \`${dbUser}\`@'localhost'
+  IDENTIFIED BY '${escapeSQL(dbPass)}';
 
 GRANT ALL PRIVILEGES ON \`${dbName}\`.*
-  TO '${dbUser}'@'localhost';
+  TO \`${dbUser}\`@'localhost';
 
 FLUSH PRIVILEGES;
 
@@ -415,6 +488,7 @@ ${translations[currentLang].sql_comment_important}`;
     }
   }
 
+  // ВИПРАВЛЕНО: для wp-config.php не використовуємо escapeSQL для пароля
   function updateWpConfigSummary(dbName, dbUser, dbPass) {
     if (wpConfigSummaryEl) {
       wpConfigSummaryEl.textContent = `<?php
@@ -431,7 +505,7 @@ define('DB_HOST', 'localhost');
 define('DB_CHARSET', 'utf8mb4');
 define('DB_COLLATE', '');
 
-${generateSaltsBlock()}
+${getSaltsBlock()}
 
 /**
  * WordPress Database Table prefix
@@ -452,35 +526,40 @@ require_once ABSPATH . 'wp-settings.php';`;
     }
   }
 
+  function resetSalts() {
+    generatedSalts = null;
+  }
+
   function generateAll() {
-    const rawName = projectInput.value.trim();
-    const clean = sanitizeProjectName(rawName);
-    const dbBase = getDbBaseName(clean);
-    const suffix = generateSuffix();
+    // 1. Будуємо дані
+    const projectData = buildProjectData();
 
-    const dbName = `${dbBase}_${suffix}_db`;
-    const dbUser = `${dbBase}_${suffix}_user`;
-    const dbPass = generatePassword();
+    // 2. Скидаємо солі ПЕРЕД генерацією wp-config
+    resetSalts();
 
-    const wpSite = `${clean}-site`;
-    const wpUser = `${clean}-${suffix}-admin`;
-    const wpPass = generatePassword();
+    // 3. Відображаємо дані в DOM
+    renderProjectData(projectData);
 
-    dbNameEl.textContent = dbName;
-    dbUserEl.textContent = dbUser;
-    dbPassEl.textContent = dbPass;
+    // 4. Оновлюємо SQL та wp-config з новими даними
+    updateSQLSummary(
+      projectData.dbName,
+      projectData.dbUser,
+      projectData.dbPass,
+    );
+    updateWpConfigSummary(
+      projectData.dbName,
+      projectData.dbUser,
+      projectData.dbPass,
+    );
 
-    wpSiteEl.textContent = wpSite;
-    wpUserEl.textContent = wpUser;
-    wpPassEl.textContent = wpPass;
-
-    updateSQLSummary(dbName, dbUser, dbPass);
-    updateWpConfigSummary(dbName, dbUser, dbPass);
+    // 5. Оновлюємо індикатори складності
     updatePasswordStrengthIndicators();
   }
 
   // ===================== STRENGTH =====================
   function checkPasswordStrength(password) {
+    if (!password) return 0;
+
     let score = 0;
 
     if (password.length >= 8) score++;
@@ -523,8 +602,20 @@ require_once ABSPATH . 'wp-settings.php';`;
   }
 
   function updatePasswordStrengthIndicators() {
-    updatePasswordStrength(dbPassEl.textContent, dbStrengthBar, dbStrengthText);
-    updatePasswordStrength(wpPassEl.textContent, wpStrengthBar, wpStrengthText);
+    if (dbPassEl.textContent) {
+      updatePasswordStrength(
+        dbPassEl.textContent,
+        dbStrengthBar,
+        dbStrengthText,
+      );
+    }
+    if (wpPassEl.textContent) {
+      updatePasswordStrength(
+        wpPassEl.textContent,
+        wpStrengthBar,
+        wpStrengthText,
+      );
+    }
   }
 
   // ===================== LANGUAGE =====================
@@ -538,26 +629,68 @@ require_once ABSPATH . 'wp-settings.php';`;
       }
     });
 
-    document.getElementById('refresh-db-pass').title =
-      translations[lang].refresh_title;
-    document.getElementById('refresh-wp-pass').title =
-      translations[lang].refresh_title;
+    if (refreshDbPass) {
+      refreshDbPass.title = translations[lang].refresh_title;
+    }
+    if (refreshWpPass) {
+      refreshWpPass.title = translations[lang].refresh_title;
+    }
 
     langButtons.forEach(btn => {
       btn.classList.toggle('active', btn.dataset.lang === lang);
     });
 
     updatePasswordStrengthIndicators();
-    updateSQLSummary(
-      dbNameEl.textContent,
-      dbUserEl.textContent,
-      dbPassEl.textContent,
-    );
-    updateWpConfigSummary(
-      dbNameEl.textContent,
-      dbUserEl.textContent,
-      dbPassEl.textContent,
-    );
+    if (dbNameEl.textContent) {
+      updateSQLSummary(
+        dbNameEl.textContent,
+        dbUserEl.textContent,
+        currentDbPass,
+      );
+      updateWpConfigSummary(
+        dbNameEl.textContent,
+        dbUserEl.textContent,
+        currentDbPass,
+      );
+    }
+  }
+
+  // ===================== COPY з FALLBACK =====================
+  function copyToClipboard(text, btn) {
+    const copySuccess = () => {
+      const old = btn.textContent;
+      btn.textContent = translations[currentLang].copied;
+      setTimeout(() => (btn.textContent = old), 1500);
+    };
+
+    const copyFail = () => {
+      alert(translations[currentLang].copy_error);
+    };
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(copySuccess).catch(copyFail);
+      return;
+    }
+
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.style.position = 'fixed';
+    textarea.style.opacity = '0';
+    document.body.appendChild(textarea);
+    textarea.select();
+
+    try {
+      const success = document.execCommand('copy');
+      if (success) {
+        copySuccess();
+      } else {
+        copyFail();
+      }
+    } catch (err) {
+      copyFail();
+    }
+
+    document.body.removeChild(textarea);
   }
 
   // ===================== EXPORT =====================
@@ -566,12 +699,13 @@ require_once ABSPATH . 'wp-settings.php';`;
       currentLang === 'uk' ? 'uk-UA' : 'en-US',
     );
     const t = translations[currentLang];
+    const safeName = sanitizeProjectName(projectInput.value || 'project');
 
     const content = `========================================
 ${t.export_header}
 ========================================
 ${t.export_date} ${date}
-${t.export_project} ${projectInput.value || 'project'}
+${t.export_project} ${safeName}
 
 ========================================
 ${t.export_db_settings}
@@ -602,24 +736,33 @@ ${wpConfigSummaryEl.textContent}`;
 
     const link = document.createElement('a');
     link.href = url;
-    link.download = `wp-${projectInput.value || 'config'}-${Date.now()}.txt`;
+    link.download = `wp-${safeName}-${Date.now()}.txt`;
     link.click();
 
     setTimeout(() => URL.revokeObjectURL(url), 100);
   }
 
-  // ===================== COPY =====================
-  function copyToClipboard(text, btn) {
-    navigator.clipboard
-      .writeText(text)
-      .then(() => {
-        const old = btn.textContent;
-        btn.textContent = translations[currentLang].copied;
-        setTimeout(() => (btn.textContent = old), 1500);
-      })
-      .catch(() => {
-        alert(translations[currentLang].copy_error);
-      });
+  // ===================== REFRESH HELPERS =====================
+  function refreshDbPassword() {
+    const passwordType = getPasswordType();
+
+    currentDbPass = generatePassword(passwordType);
+    dbPassEl.textContent = currentDbPass;
+    updateSQLSummary(dbNameEl.textContent, dbUserEl.textContent, currentDbPass);
+    updateWpConfigSummary(
+      dbNameEl.textContent,
+      dbUserEl.textContent,
+      currentDbPass,
+    );
+    updatePasswordStrength(currentDbPass, dbStrengthBar, dbStrengthText);
+  }
+
+  function refreshWpPassword() {
+    const passwordType = getPasswordType();
+
+    currentWpPass = generatePassword(passwordType);
+    wpPassEl.textContent = currentWpPass;
+    updatePasswordStrength(currentWpPass, wpStrengthBar, wpStrengthText);
   }
 
   // ===================== EVENTS =====================
@@ -643,24 +786,19 @@ ${wpConfigSummaryEl.textContent}`;
   generateBtn?.addEventListener('click', generateAll);
 
   projectInput?.addEventListener('keydown', e => {
-    if (e.key === 'Enter') generateAll();
+    if (e.key === 'Enter') {
+      generateAll();
+    }
   });
 
-  refreshDbPass?.addEventListener('click', () => {
-    const pass = generatePassword();
-    dbPassEl.textContent = pass;
-    updateSQLSummary(dbNameEl.textContent, dbUserEl.textContent, pass);
-    updateWpConfigSummary(dbNameEl.textContent, dbUserEl.textContent, pass);
-    updatePasswordStrength(pass, dbStrengthBar, dbStrengthText);
-  });
+  refreshDbPass?.addEventListener('click', refreshDbPassword);
+  refreshWpPass?.addEventListener('click', refreshWpPassword);
 
-  refreshWpPass?.addEventListener('click', () => {
-    const pass = generatePassword();
-    wpPassEl.textContent = pass;
-    updatePasswordStrength(pass, wpStrengthBar, wpStrengthText);
-  });
-
-  passwordTypeRadios.forEach(r => r?.addEventListener('change', generateAll));
+  passwordTypeRadios.forEach(r =>
+    r?.addEventListener('change', () => {
+      updatePasswordStrengthIndicators();
+    }),
+  );
 
   exportTxtBtn?.addEventListener('click', exportToTXT);
 
