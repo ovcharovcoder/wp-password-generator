@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>WP Password Generator</title>
-    <!-- Іконка у вкладці браузера -->
     <link
       rel="icon"
       type="image/svg+xml"
@@ -15,7 +14,7 @@
   </head>
   <body>
     <div class="container">
-      <!-- Логотип з обертанням -->
+      <!-- Logo with rotation -->
       <div class="logo-container">
         <div class="logo-circle">
           <svg viewBox="0 0 100 100" width="50" height="50">
@@ -48,23 +47,22 @@
           </p>
         </div>
 
-        <!-- Перемикач мов ПЕРЕМІЩЕНО ВСЕРЕДИНУ ЛОГОТИПА -->
+        <!-- Language switcher -->
         <div class="language-switcher">
           <button class="lang-btn active" data-lang="uk">Українська</button>
           <button class="lang-btn" data-lang="en">English</button>
         </div>
       </div>
 
-      <!-- ТЕПЕР ЦЕ H2, А НЕ H1 -->
       <h2 data-i18n="title" class="site-description">
         Генератор паролів для розробки WordPress сайтів
       </h2>
       <p data-i18n="subtitle">
-        Введіть назву проекту та отримайте готові налаштування для бази даних та
+        Введіть назву проєкту та отримайте готові налаштування для бази даних та
         WordPress.
       </p>
 
-      <!-- Інтерактивна інструкція -->
+      <!-- Interactive instructions -->
       <div class="interactive-guide">
         <h3 data-i18n="guide_title">📖 Покрокова інструкція</h3>
         <div class="guide-steps">
@@ -76,7 +74,7 @@
             <div class="step-content">
               <h4 data-i18n="step1_title">Введіть назву проекту</h4>
               <p data-i18n="step1_desc">
-                Наприклад: lifetime, azov, myblog (можна кирилицею)
+                Наприклад: мій сайт, мій блог (можна кирилицею)
               </p>
             </div>
           </div>
@@ -123,13 +121,13 @@
 
       <div class="input-group">
         <label for="project-name" data-i18n="project_label"
-          >Назва проекту:</label
+          >Назва проєкту:</label
         >
         <input type="text" id="project-name" placeholder="project" />
         <button id="generate-btn" data-i18n="generate_btn">Згенерувати</button>
       </div>
 
-      <!-- Налаштування паролів -->
+      <!-- Password settings -->
       <div class="password-settings">
         <h3 data-i18n="password_settings">🔐 Налаштування паролів:</h3>
         <div class="password-options">
@@ -148,7 +146,7 @@
       </div>
 
       <div class="results-grid">
-        <!-- База даних -->
+        <!-- Database -->
         <div class="result-section">
           <h2 data-i18n="db_title">Налаштування бази даних (MySQL)</h2>
           <div class="result-item">
@@ -179,7 +177,7 @@
               🔄
             </button>
           </div>
-          <!-- Індикатор складності пароля для БД -->
+          <!-- Password complexity indicator for the database -->
           <div class="password-strength" id="db-strength-container">
             <div class="strength-meter">
               <div
@@ -225,7 +223,7 @@
               🔄
             </button>
           </div>
-          <!-- Індикатор складності пароля для WP -->
+          <!-- Password Strength Indicator for WP -->
           <div class="password-strength" id="wp-strength-container">
             <div class="strength-meter">
               <div
@@ -242,7 +240,7 @@
       </div>
 
       <div class="code-blocks">
-        <!-- SQL фрагмент -->
+        <!-- SQL fragment -->
         <div class="code-section">
           <h3 data-i18n="sql_title">📊 SQL для створення бази даних:</h3>
           <pre id="sql-summary">
