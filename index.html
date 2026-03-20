@@ -3,7 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>WP Password Generator | Генератор паролів для WordPress</title>
+    <title>WP Password Generator</title>
+    <!-- Іконка у вкладці браузера -->
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔐</text></svg>"
+    />
+
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
@@ -81,12 +87,7 @@
         <label for="project-name" data-i18n="project_label"
           >Назва проекту:</label
         >
-        <input
-          type="text"
-          id="project-name"
-          placeholder="lifetime, mynewsite, azov"
-          value="lifetime"
-        />
+        <input type="text" id="project-name" placeholder="project" />
         <button id="generate-btn" data-i18n="generate_btn">Згенерувати</button>
       </div>
 
