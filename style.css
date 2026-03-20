@@ -5,7 +5,7 @@
 }
 
 :root {
-  /* Основні кольори - м'які, приємні для очей */
+  /* Primary colors */
   --primary: #5a67d8;
   --primary-dark: #4c51bf;
   --secondary: #9f7aea;
@@ -15,7 +15,7 @@
   --yellow: #fbbf24;
   --success: #68d391;
 
-  /* Фонові кольори */
+  /* Background colors */
   --bg-gradient-start: #1a202c;
   --bg-gradient-end: #2d3748;
   --bg-white: rgba(255, 255, 255, 0.95);
@@ -25,7 +25,7 @@
   --bg-darker: #111827;
   --bg-code: #1e293b;
 
-  /* Кольори тексту */
+  /* Text colors */
   --text-primary: #1a202c;
   --text-secondary: #2d3748;
   --text-muted: #4a5568;
@@ -33,13 +33,13 @@
   --text-light: #e2e8f0;
   --text-code: #a0aec0;
 
-  /* Кольори меж */
+  /* Border colors */
   --border-light: #e2e8f0;
   --border-medium: #cbd5e0;
   --border-dark: #4a5568;
   --border-blue: #cbd5e0;
 
-  /* Спеціальні кольори */
+  /* Special colors */
   --code-bg: #0f172a;
   --code-text: #a5f3fc;
   --linkedin: #0077b5;
@@ -55,7 +55,7 @@
   --border-radius-xl: 1rem;
   --border-radius-full: 1.875rem;
 
-  /* Тіні */
+  /* Shadows */
   --shadow-sm: 0 0.25rem 0.375rem rgba(0, 0, 0, 0.05);
   --shadow-md: 0 0.5rem 0.9375rem rgba(90, 103, 216, 0.15);
   --shadow-lg: 0 1.875rem 3.75rem rgba(0, 0, 0, 0.15);
@@ -63,12 +63,12 @@
   --shadow-success: 0 0.25rem 0.375rem rgba(104, 211, 145, 0.2);
   --shadow-success-hover: 0 0.5rem 0.9375rem rgba(104, 211, 145, 0.3);
 
-  /* Анімації */
+  /* Animations */
   --transition-fast: all 0.2s;
   --transition-normal: all 0.3s;
 }
 
-/* ========== БАЗОВІ СТИЛІ ========== */
+/* ========== BASIC STYLES ========== */
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: linear-gradient(
@@ -86,7 +86,7 @@ body {
   overflow-x: hidden;
 }
 
-/* Основний фоновий шар з сіткою */
+/* Main background layer with grid */
 body::before {
   content: '';
   position: fixed;
@@ -103,7 +103,7 @@ body::before {
   animation: subtleGridMove 8s linear infinite;
 }
 
-/* Додатковий шар для хвильового ефекту (світліші області) */
+/* Additional layer for wave effect (lighter areas) */
 body::after {
   content: '';
   position: fixed;
@@ -132,7 +132,7 @@ body::after {
   animation: glowWave 12s ease-in-out infinite;
 }
 
-/* Повільний рух сітки */
+/* Slow motion grid */
 @keyframes subtleGridMove {
   0% {
     transform: translate(0, 0);
@@ -142,7 +142,7 @@ body::after {
   }
 }
 
-/* Плавне переміщення світлих областей */
+/* Smooth movement of light areas */
 @keyframes glowWave {
   0% {
     opacity: 0.3;
@@ -166,7 +166,7 @@ body::after {
   }
 }
 
-/* Третій шар для додаткової глибини */
+/* Third layer for extra depth */
 .background-aura {
   position: fixed;
   top: 0;
@@ -194,7 +194,7 @@ body::after {
   }
 }
 
-/* ========== КОНТЕЙНЕР ========== */
+/* ========== CONTAINER ========== */
 .container {
   background-color: var(--bg-white);
   backdrop-filter: blur(10px);
@@ -208,7 +208,7 @@ body::after {
   transition: var(--transition-normal);
 }
 
-/* ========== ЛОГОТИП ========== */
+/* ========== LOGOTYPE ========== */
 .logo-container {
   display: flex;
   align-items: center;
@@ -266,7 +266,7 @@ body::after {
   letter-spacing: 0.5px;
 }
 
-/* ========== ПЕРЕМИКАЧ МОВ (у стилі кнопок) ========== */
+/* ========== LANGUAGE SWITCH ========== */
 .language-switcher {
   display: flex;
   gap: 0.75rem;
@@ -324,7 +324,7 @@ body::after {
   box-shadow: 0 4px 12px rgba(90, 103, 216, 0.4);
 }
 
-/* ========== ЗАГОЛОВКИ ========== */
+/* ========== HEADLINES ========== */
 .site-description {
   font-size: 1.8rem;
   color: var(--text-primary);
@@ -363,7 +363,7 @@ h3 {
   gap: 0.5rem;
 }
 
-/* ========== ІНТЕРАКТИВНА ІНСТРУКЦІЯ ========== */
+/* ========== INTERACTIVE INSTRUCTIONS ========== */
 .interactive-guide {
   background: linear-gradient(
     135deg,
@@ -467,7 +467,7 @@ h3 {
   font-size: 1.2em;
 }
 
-/* ========== ГРУПА ВВЕДЕННЯ ========== */
+/* ========== GROUP INTRODUCTION ========== */
 .input-group {
   background-color: var(--bg-light);
   padding: 1.5625rem;
@@ -543,7 +543,7 @@ h3 {
   box-shadow: var(--shadow-primary);
 }
 
-/* ========== НАЛАШТУВАННЯ ПАРОЛІВ ========== */
+/* ========== SETTING PASSWORDS ========== */
 .password-settings {
   background: rgba(90, 103, 216, 0.05);
   padding: 1.125rem 1.25rem;
@@ -603,7 +603,7 @@ h3 {
   box-shadow: 0 0 8px rgba(90, 103, 216, 0.3);
 }
 
-/* ========== РЕЗУЛЬТАТИ ========== */
+/* ========== RESULTS ========== */
 .results-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -705,7 +705,7 @@ h3 {
   box-shadow: 0 2px 8px rgba(90, 103, 216, 0.3);
 }
 
-/* ========== ІНДИКАТОР СКЛАДНОСТІ ========== */
+/* ========== DIFFICULTY INDICATOR ========== */
 .password-strength {
   margin-top: 0.5rem;
   padding: 0.5rem;
@@ -735,7 +735,7 @@ h3 {
   font-weight: 600;
 }
 
-/* ========== КОДОВІ БЛОКИ ========== */
+/* ========== CODE BLOCKS ========== */
 .code-blocks {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -835,7 +835,7 @@ h3 {
   color: white;
 }
 
-/* ========== ЕКСПОРТ ========== */
+/* ========== EXPORT ========== */
 .export-section {
   display: flex;
   justify-content: center;
@@ -892,7 +892,7 @@ h3 {
   line-height: 1;
 }
 
-/* ========== ФУТЕР ========== */
+/* ========== FOOTER ========== */
 .footer-note {
   margin: 1.5625rem 0;
   padding: 0.9375rem 1.125rem;
@@ -945,7 +945,7 @@ h3 {
   margin: 0.9375rem 0;
 }
 
-/* ========== КОПІРАЙТ ========== */
+/* ========== COPYRIGHT ========== */
 .copyright-wrapper {
   display: flex;
   justify-content: center;
@@ -974,7 +974,7 @@ h3 {
   text-decoration: underline;
 }
 
-/* ========== СКРОЛБАР ========== */
+/* ========== SCROLLBAR ========== */
 .code-section pre::-webkit-scrollbar {
   height: 0.375rem;
   width: 0.375rem;
@@ -1048,7 +1048,7 @@ h3 {
   }
 }
 
-/* ========== АДАПТИВНІСТЬ ========== */
+/* ========== ADAPTABILITY ========== */
 @media screen and (max-width: 1024px) {
   .container {
     padding: 1.5625rem;
