@@ -100,6 +100,14 @@ MIT License
 
 ---
 
-## 👨‍💻 Author
 
-Created by Andrii Ovcharov — Web Developer & Designer
+## 👤 Author
+
+<img 
+  src="https://raw.githubusercontent.com/ovcharovcoder/devfoundry-umber-theme/main/images/avatar.png"
+  alt="Andriy Ovcharov"
+  width="60"
+/>
+
+Andriy Ovcharov<br>  
+📧 ovcharovcoder@gmail.com
