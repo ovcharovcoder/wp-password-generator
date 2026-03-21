@@ -124,7 +124,7 @@ Every developer faces the need to:
 
 ### Online version
 1. Go to [WP Password Generator](https://ovcharovcoder.github.io/wp-password-generator/)
-2. Enter your project name (e.g., "lactazic", "myblog")
+2. Enter your project name (e.g., "mysite", "myblog")
 3. Choose password type (Simple or Strong)
 4. Click **"Generate"**
 5. Copy SQL, wp-config.php, .htaccess, or robots.txt snippets
@@ -146,17 +146,6 @@ Every developer faces the need to:
 - **Crypto API** – cryptographically secure random generation
 - **Clipboard API** – with fallback for older browsers
 - **LocalStorage** – not used (no user data stored)
-
----
-
-## 🔧 **Deployment**
-
-Simply upload three files to any web hosting:
-- `index.html`
-- `style.css`
-- `script.js`
-
-Or use GitHub Pages for free hosting.
 
 ---
 
