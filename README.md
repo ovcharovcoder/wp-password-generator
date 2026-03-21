@@ -2,13 +2,14 @@
 
 <div align="center">
   
-  ### Password and settings generator for WordPress developers
+  ### Advanced password and security configuration generator for WordPress developers
   
   [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
   [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
   ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white)
   ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white)
   ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)
+  ![Security](https://img.shields.io/badge/Security-Cryptographic-blue)
   
 </div>
 
@@ -16,67 +17,105 @@
 
 ## 📋 About the project
 
-**WP Password generator** is a free web tool created to simplify the workflow of WordPress developers. It automatically generates unique database names, usernames, and secure passwords when migrating sites to a new hosting.
+**WP Password Generator** is a free, open-source web tool that helps WordPress developers quickly generate secure database credentials, WordPress configuration files, and security-hardened `.htaccess` and `robots.txt` files.
 
 ### 🎯 The problem it solves
 
 Every developer faces the need to:
-- Come up with unique database names
-- Create database usernames
-- Generate secure passwords
-- Update wp-config.php
+- Create unique database names and users
+- Generate cryptographically secure passwords
+- Configure `wp-config.php` with proper security keys
+- Set up `.htaccess` for security and performance
+- Create SEO-optimized `robots.txt`
+- Ensure all credentials are unique and secure
 
-Our generator does this in seconds!
+**Our generator does all this in seconds!** 🚀
 
 ---
 
 ## ✨ Features
 
-### 🔑 Generated data
+### 🔐 **Cryptographic Security**
+- Uses `crypto.getRandomValues()` – bank-grade random number generation
+- 16-character passwords with guaranteed character diversity
+- Unique 6-character suffixes for each component (database, DB user, WP admin)
+- 64-character Security Keys for WordPress
+
+### 🗄️ **Generated Components**
+
 | Component | Format | Example |
 |-----------|--------|---------|
-| Database Name | `{project}_db` | `lifetime_db` |
-| Database User | `{project}_user` | `lifetime_user` |
-| Database Password | 12 characters | `k8J#mP2$nL5x` |
-| Site Name | `{project}-site` | `lifetime-site` |
-| WordPress User | `{project}-admin` | `lifetime-admin` |
-| WordPress Password | 12 characters | `xR7@qW3!eK9p` |
+| Database Name | `{project}_{suffix}_db` | `project_6dw32r_db` |
+| Database User | `{project}_{suffix}_user` | `project_y02moy_user` |
+| Database Password | 16 characters with special chars | `k8J#mP2$nL5x!9Q` |
+| Site Title | `{project}` | `lactazic` |
+| WordPress Admin | `{project}-{suffix}-admin` | `lactazic-1bf9mz-admin` |
+| WordPress Password | 16 characters | `xR7@qW3!eK9p$mN2` |
 
-### 🛠 Functionality
+### 🛡️ **Security Files Generated**
+
+| File | Protection Level | Description |
+|------|------------------|-------------|
+| **SQL** | High | Complete database creation with secure user privileges |
+| **wp-config.php** | High | Database credentials + 8 unique Security Keys |
+| **.htaccess** | High | Protection against directory browsing, XML-RPC, SQL injection, sensitive file access, Gzip compression, caching, security headers |
+| **robots.txt** | Medium | SEO optimization with sensitive directory blocking |
+
+### 🛠 **Functionality**
 
 ✅ **Two password types**
 - Simple (letters and numbers only)
-- Strong (with special characters)
+- Strong (with special characters: `!@#$%^*_+-=`)
 
-✅ **Transliteration** – support for Ukrainian project names
+✅ **Transliteration** – support for Ukrainian and Cyrillic project names
 
-✅ **Strength indicator** – visual representation of password security
+✅ **Strength indicator** – visual feedback on password security level
+
+✅ **Unique suffixes** – each component gets its own random 6-character suffix
 
 ✅ **Ready-to-Use code snippets**
-- SQL for database creation
-- Section for wp-config.php
+- SQL for database creation (with proper permissions)
+- wp-config.php (with all 8 Security Keys)
+- .htaccess (Apache security rules)
+- robots.txt (SEO-optimized)
 
-✅ **TXT export** – save all data to a text file
+✅ **TXT export** – save all configuration data to a single text file
 
 ✅ **Bilingual interface** – Ukrainian and English languages
 
-✅ **Step-by-Step guide** – for beginners
+✅ **Step-by-Step guide** – intuitive instructions for beginners
 
-✅ **Responsive design** – displays correctly on all devices
+✅ **Responsive design** – works perfectly on all devices
+
+✅ **Copy to clipboard** – fallback support for all browsers
 
 ---
 
-### Screenshots
+## 🔒 **Security Features**
+
+| Feature | Description |
+|---------|-------------|
+| **Cryptographic RNG** | `crypto.getRandomValues()` – impossible to predict |
+| **Unique Suffixes** | 6 random chars per component (36^6 combinations) |
+| **Password Strength** | Minimum 16 chars, all character types included |
+| **SQL Injection Protection** | Full MySQL escaping for passwords |
+| **.htaccess Rules** | Blocks XML-RPC, directory browsing, hidden files, sensitive extensions |
+| **Security Headers** | X-Frame-Options, CSP, Referrer-Policy |
+| **WordPress Security Keys** | 8 unique 64-char salts generated per project |
+
+---
+
+## 📸 Screenshots
 
 <div align="center">
   <img src="screenshots/main.png" alt="Main Screen" width="800"/>
-  <p><em>Main screen of the generator</em></p>
+  <p><em>Main screen with modern futuristic design</em></p>
   
   <img src="screenshots/generation.png" alt="Generation Process" width="800"/>
-  <p><em>Generation example for "project" project</em></p>
+  <p><em>Generated credentials for "lactazic" project</em></p>
   
   <img src="screenshots/export.png" alt="Export" width="800"/>
-  <p><em>Exporting results to TXT</em></p>
+  <p><em>Complete TXT export with all configuration files</em></p>
 </div>
 
 ---
@@ -84,22 +123,48 @@ Our generator does this in seconds!
 ## 💻 How to use
 
 ### Online version
-1. Go to [WP Password Generator](
-https://ovcharovcoder.github.io/wp-password-generator/)
-2. Enter the project name (e.g., "project")
-3. Choose password type (simple or strong)
-4. Click "Generate"
-5. Copy SQL or wp-config.php snippet
-6. Export data to TXT if needed
+1. Go to [WP Password Generator](https://ovcharovcoder.github.io/wp-password-generator/)
+2. Enter your project name (e.g., "lactazic", "myblog")
+3. Choose password type (Simple or Strong)
+4. Click **"Generate"**
+5. Copy SQL, wp-config.php, .htaccess, or robots.txt snippets
+6. Export all data to TXT for safekeeping
+
+### Generated files you'll receive:
+- **SQL** – to create database and user in phpMyAdmin
+- **wp-config.php** – to configure WordPress database connection
+- **.htaccess** – to secure your Apache server
+- **robots.txt** – to optimize search engine indexing
+
+---
+
+## 🛠 Technologies
+
+- **HTML5** – modern semantic structure
+- **CSS3** – animations, gradients, glassmorphism, responsive design
+- **JavaScript (Vanilla)** – no frameworks, pure logic
+- **Crypto API** – cryptographically secure random generation
+- **Clipboard API** – with fallback for older browsers
+- **LocalStorage** – not used (no user data stored)
+
+---
+
+## 🔧 **Deployment**
+
+Simply upload three files to any web hosting:
+- `index.html`
+- `style.css`
+- `script.js`
+
+Or use GitHub Pages for free hosting.
 
 ---
 
 ## 📄 License
 
-MIT License
+This project is licensed under the MIT License – see the [LICENSE](LICENSE) file for details.
 
 ---
-
 
 ## 👤 Author
 
@@ -109,5 +174,21 @@ MIT License
   width="60"
 />
 
-Andriy Ovcharov<br>  
-📧 ovcharovcoder@gmail.com
+**Andriy Ovcharov**<br>
+📧 ovcharovcoder@gmail.com<br>
+🔗 [LinkedIn](https://www.linkedin.com/in/andrii-ovcharov-101a24196/) | [GitHub](https://github.com/ovcharovcoder)
+
+---
+
+## 🙏 Acknowledgments
+
+- WordPress community for inspiration
+- Open Source contributors
+- Everyone who uses this tool and provides feedback
+
+---
+
+<div align="center">
+  <sub>Made with ❤️ for WordPress developers</sub><br>
+  <sub>© 2026 Andrii Ovcharov</sub>
+</div>
