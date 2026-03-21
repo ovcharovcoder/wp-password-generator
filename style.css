@@ -1417,8 +1417,7 @@ h3 {
   .footer-note p {
     font-size: 1rem;
     flex-wrap: wrap;
-    text-align: center;
-    justify-content: center;
+    text-align: left;
   }
 
   .footer-text {
