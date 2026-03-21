@@ -1466,8 +1466,9 @@ h3 {
     padding: 0.875rem;
   }
 
-  .faq-section h3 {
-    font-size: 1.2rem;
+  .faq-section h3,
+  h2{
+    font-size: 20px;
   }
 
   .faq-question {
