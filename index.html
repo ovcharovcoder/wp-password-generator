@@ -290,6 +290,106 @@ define( 'DB_COLLATE', '' );
         </div>
       </div>
 
+      <!-- NEW: .htaccess and robots.txt blocks -->
+      <div class="code-blocks">
+        <!-- .htaccess fragment -->
+        <div class="code-section">
+          <h3 data-i18n="htaccess_title">🛡️ .htaccess (Security)</h3>
+          <pre id="htaccess-summary">
+# Protect wp-config.php
+<files wp-config.php>
+    order allow,deny
+    deny from all
+</files>
+
+# Disable directory browsing
+Options -Indexes
+
+# Protect hidden files
+RedirectMatch 403 /\..*$
+
+# Block access to sensitive files
+<FilesMatch "(^#.*#|\.(php|inc|log|bak|sql|git|svn|htaccess|htpasswd|ini|sh|yml|json|lock|md|txt|dist|editorconfig|gitattributes|gitignore|eslintignore|eslintrc|prettierrc|stylelintrc)$)">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Gzip compression
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/css text/javascript application/javascript application/json
+</IfModule>
+
+# Browser caching
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/jpg "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType text/javascript "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+</IfModule>
+
+# WordPress security headers
+<IfModule mod_headers.c>
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-XSS-Protection "1; mode=block"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+                </pre
+          >
+          <div class="code-section-footer">
+            <button id="copy-htaccess" class="copy-btn" data-i18n="copy_htaccess">
+              📋 Скопіювати .htaccess
+            </button>
+          </div>
+        </div>
+
+        <!-- robots.txt fragment -->
+        <div class="code-section">
+          <h3 data-i18n="robots_title">🤖 robots.txt (SEO & Security)</h3>
+          <pre id="robots-summary">
+# Allow all bots to crawl the site
+User-agent: *
+Allow: /
+
+# Disable access to sensitive directories
+Disallow: /wp-admin/
+Disallow: /wp-includes/
+Disallow: /wp-content/plugins/
+Disallow: /wp-content/themes/
+Disallow: /wp-content/uploads/
+Disallow: /wp-config.php
+Disallow: /readme.html
+Disallow: /license.txt
+Disallow: /xmlrpc.php
+Disallow: /wp-signup.php
+Disallow: /wp-activate.php
+Disallow: /wp-login.php
+Disallow: /wp-register.php
+
+# Allow access to necessary resources
+Allow: /wp-admin/admin-ajax.php
+Allow: /wp-content/uploads/
+
+# Sitemap location (replace with your actual sitemap URL)
+Sitemap: https://yourdomain.com/sitemap.xml
+
+# Crawl delay (optional - helps reduce server load)
+# Crawl-delay: 1
+                </pre
+          >
+          <div class="code-section-footer">
+            <button id="copy-robots" class="copy-btn" data-i18n="copy_robots">
+              📋 Скопіювати robots.txt
+            </button>
+          </div>
+        </div>
+      </div>
+
       <!-- Export to TXT button -->
       <div class="export-section">
         <button id="export-txt" class="export-btn">
