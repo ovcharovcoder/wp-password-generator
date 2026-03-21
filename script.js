@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // ===================== CRYPTO API CHECK =====================
   if (!window.crypto || !window.crypto.getRandomValues) {
     alert(
-      'Your browser does not support modern cryptographic features. Please update your browser.',
+      'Ваш браузер не підтримує сучасні криптографічні функції. Будь ласка, оновіть браузер.',
     );
     throw new Error('Crypto API not supported');
   }
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function () {
   let currentLang = 'en';
 
   // ===================== STATE =====================
-  let generatedSalts = null; // Кешуємо солі
+  let generatedSalts = null;
   let currentDbPass = '';
   let currentWpPass = '';
 
@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function () {
       step1_title: 'Введіть назву проєкту',
       step1_desc: 'Наприклад: мій сайт, мій блог, (можна кирилицею)',
       step2_title: 'Виберіть тип пароля',
-      step2_desc: 'Простий або сильний (12 символів)',
+      step2_desc: 'Простий або сильний (16 символів)',
       step3_title: 'Натисніть "Згенерувати"',
       step3_desc: 'Отримайте готові налаштування',
       step4_title: 'Скопіюйте або експортуйте',
@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function () {
       password_settings: '🔐 Налаштування паролів:',
       simple: 'Простий (тільки літери та цифри)',
       strong: 'Сильний (з спецсимволами)',
-      password_note: '⚡ Довжина пароля: 12 символів',
+      password_note: '⚡ Довжина пароля: 16 символів',
 
       db_title: 'Налаштування бази даних (MySQL)',
       db_name: 'Назва БД:',
@@ -148,7 +148,7 @@ document.addEventListener('DOMContentLoaded', function () {
       step1_title: 'Enter project name',
       step1_desc: 'Example: myblog, mysite',
       step2_title: 'Choose password type',
-      step2_desc: 'Simple or strong (12 characters)',
+      step2_desc: 'Simple or strong (16 characters)',
       step3_title: 'Click "Generate"',
       step3_desc: 'Get ready-to-use settings',
       step4_title: 'Copy or export',
@@ -161,7 +161,7 @@ document.addEventListener('DOMContentLoaded', function () {
       password_settings: '🔐 Password settings:',
       simple: 'Simple (letters and numbers only)',
       strong: 'Strong (with special chars)',
-      password_note: '⚡ Password length: 12 characters',
+      password_note: '⚡ Password length: 16 characters',
 
       db_title: 'Database settings (MySQL)',
       db_name: 'DB Name:',
@@ -342,9 +342,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const lower = 'abcdefghijklmnopqrstuvwxyz';
     const upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     const numbers = '0123456789';
-    const symbols = '!@%^*_+-=';
+    const symbols = '!@#$%^*_+-=';
 
-    const length = 12;
+    const length = 16;
     let password = [];
 
     if (type === 'simple') {
@@ -482,81 +482,148 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // ===================== STATIC CONTENT =====================
+  // ОНОВЛЕНО: розширений .htaccess з повним захистом
   function getHtaccessContent() {
-    return `# Protect wp-config.php
-<files wp-config.php>
-    order allow,deny
-    deny from all
-</files>
+    return `# =========================
+# CORE SECURITY
+# =========================
+
+# Protect wp-config.php
+<Files wp-config.php>
+    Require all denied
+</Files>
+
+# Disable XML-RPC (major attack vector)
+<Files xmlrpc.php>
+    Require all denied
+</Files>
 
 # Disable directory browsing
 Options -Indexes
 
-# Protect hidden files
-RedirectMatch 403 /\..*$
+# Protect hidden files (allow .well-known for SSL)
+RedirectMatch 403 /\\.(?!well-known).*
 
 # Block access to sensitive files
-<FilesMatch "(^#.*#|\\.(php|inc|log|bak|sql|git|svn|htaccess|htpasswd|ini|sh|yml|json|lock|md|txt|dist|editorconfig|gitattributes|gitignore|eslintignore|eslintrc|prettierrc|stylelintrc)$)">
-    Order allow,deny
-    Deny from all
+<FilesMatch "(^#.*#|\\.(inc|log|bak|sql|git|svn|htaccess|htpasswd|ini|sh|yml|lock)$)">
+    Require all denied
 </FilesMatch>
+
+# =========================
+# BASIC BOT / BAD REQUEST FILTER
+# =========================
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+
+# Block suspicious query strings (basic injections)
+RewriteCond %{QUERY_STRING} (\\.\\./|\\.\\.\\\\|<|>|%3C|%3E|UNION|SELECT|INSERT|DROP|--|') [NC]
+RewriteRule .* - [F]
+
+# Block direct access to PHP in uploads (common hack vector)
+RewriteRule ^wp-content/uploads/.*\\.php$ - [F]
+</IfModule>
+
+# =========================
+# LOGIN PROTECTION (LIGHT)
+# =========================
+
+<Files wp-login.php>
+    Require all denied
+</Files>
+
+# =========================
+# PERFORMANCE
+# =========================
 
 # Gzip compression
 <IfModule mod_deflate.c>
-    AddOutputFilterByType DEFLATE text/html text/css text/javascript application/javascript application/json
+    AddOutputFilterByType DEFLATE text/html text/css text/javascript application/javascript application/json application/xml text/plain font/woff2 application/font-woff application/vnd.ms-fontobject
 </IfModule>
 
 # Browser caching
 <IfModule mod_expires.c>
     ExpiresActive On
+
+    # Images
     ExpiresByType image/jpg "access plus 1 year"
     ExpiresByType image/jpeg "access plus 1 year"
     ExpiresByType image/gif "access plus 1 year"
     ExpiresByType image/png "access plus 1 year"
     ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType image/x-icon "access plus 1 year"
+
+    # Fonts
+    ExpiresByType font/woff2 "access plus 1 year"
+    ExpiresByType application/font-woff "access plus 1 year"
+
+    # CSS / JS
     ExpiresByType text/css "access plus 1 month"
     ExpiresByType text/javascript "access plus 1 month"
     ExpiresByType application/javascript "access plus 1 month"
 </IfModule>
 
-# WordPress security headers
+# =========================
+# SECURITY HEADERS
+# =========================
+
 <IfModule mod_headers.c>
     Header set X-Frame-Options "SAMEORIGIN"
     Header set X-Content-Type-Options "nosniff"
-    Header set X-XSS-Protection "1; mode=block"
     Header set Referrer-Policy "strict-origin-when-cross-origin"
+
+    # Basic CSP (safe mode)
+    Header set Content-Security-Policy "default-src 'self' https: data: 'unsafe-inline' 'unsafe-eval'"
 </IfModule>`;
   }
 
   function getRobotsContent() {
-    return `# Allow all bots to crawl the site
-User-agent: *
-Allow: /
+    return `# =========================
+# OPTIMIZED ROBOTS.TXT
+# =========================
 
-# Disable access to sensitive directories
+# Apply rules to all bots
+User-agent: *
+
+# -------------------------
+# Core WordPress security
+# -------------------------
+
+# Block sensitive admin and system files
 Disallow: /wp-admin/
-Disallow: /wp-includes/
-Disallow: /wp-content/plugins/
-Disallow: /wp-content/themes/
-Disallow: /wp-content/uploads/
-Disallow: /wp-config.php
-Disallow: /readme.html
-Disallow: /license.txt
+Disallow: /wp-login.php
+Disallow: /wp-register.php
 Disallow: /xmlrpc.php
 Disallow: /wp-signup.php
 Disallow: /wp-activate.php
-Disallow: /wp-login.php
-Disallow: /wp-register.php
+Disallow: /wp-config.php
+Disallow: /readme.html
+Disallow: /license.txt
 
-# Allow access to necessary resources
-Allow: /wp-admin/admin-ajax.php
+# Block plugin and theme folders for indexing
+Disallow: /wp-content/plugins/
+Disallow: /wp-content/themes/
+
+# Allow public JS/CSS from plugins/themes for proper rendering
+Allow: /wp-content/plugins/*.js
+Allow: /wp-content/plugins/*.css
+Allow: /wp-content/themes/*.js
+Allow: /wp-content/themes/*.css
+
+# Allow media uploads for indexing
 Allow: /wp-content/uploads/
 
-# Sitemap location (replace with your actual sitemap URL)
-Sitemap: https://yourdomain.com/sitemap.xml
+# -------------------------
+# Optional crawl control
+# -------------------------
 
-# Crawl delay (optional - helps reduce server load)
-# Crawl-delay: 1`;
+# Reduce server load (adjust if needed)
+# Crawl-delay: 1
+
+# -------------------------
+# Sitemap
+# -------------------------
+Sitemap: https://yourdomain.com/sitemap.xml`;
   }
 
   function updateHtaccess() {
@@ -582,10 +649,9 @@ CREATE DATABASE IF NOT EXISTS \`${dbName}\`
 CREATE USER IF NOT EXISTS \`${dbUser}\`@'localhost'
   IDENTIFIED BY '${escapeSQL(dbPass)}';
 
--- Grant all privileges with grant option (full control)
+-- Grant all privileges for WordPress (without GRANT OPTION for security)
 GRANT ALL PRIVILEGES ON \`${dbName}\`.*
-  TO \`${dbUser}\`@'localhost'
-  WITH GRANT OPTION;
+  TO \`${dbUser}\`@'localhost';
 
 FLUSH PRIVILEGES;
 
@@ -618,16 +684,12 @@ ${getSaltsBlock()}`;
   }
 
   function generateAll() {
-    // 1. Building data
     const projectData = buildProjectData();
 
-    // 2. We reset the salts BEFORE generating wp-config
     resetSalts();
 
-    // 3. Display data in DOM
     renderProjectData(projectData);
 
-    // 4. Updating SQL and wp-config with new data
     updateSQLSummary(
       projectData.dbName,
       projectData.dbUser,
@@ -639,11 +701,9 @@ ${getSaltsBlock()}`;
       projectData.dbPass,
     );
 
-    // 5. Update static files (no changes needed)
     updateHtaccess();
     updateRobots();
 
-    // 6. Updating difficulty indicators
     updatePasswordStrengthIndicators();
   }
 
@@ -654,8 +714,8 @@ ${getSaltsBlock()}`;
     let score = 0;
 
     if (password.length >= 8) score++;
-    if (password.length >= 10) score++;
     if (password.length >= 12) score++;
+    if (password.length >= 16) score++;
 
     if (/[a-z]/.test(password)) score++;
     if (/[A-Z]/.test(password)) score++;
