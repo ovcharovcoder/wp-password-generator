@@ -1350,6 +1350,10 @@ h3 {
     gap: 0.625rem;
   }
 
+  .guide-tip {
+  align-items: flex-start;
+  }
+
   .step {
     padding: 0.625rem;
   }
