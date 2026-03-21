@@ -170,11 +170,11 @@ This project is licensed under the MIT License – see the [LICENSE](LICENSE) fi
 
 <img 
   src="https://raw.githubusercontent.com/ovcharovcoder/devfoundry-umber-theme/main/images/avatar.png"
-  alt="Andriy Ovcharov"
+  alt="Andrii Ovcharov"
   width="60"
 />
 
-**Andriy Ovcharov**<br>
+**Andrii Ovcharov**<br>
 📧 ovcharovcoder@gmail.com<br>
 🔗 [LinkedIn](https://www.linkedin.com/in/andrii-ovcharov-101a24196/) | [GitHub](https://github.com/ovcharovcoder)
 
