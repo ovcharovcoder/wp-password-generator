@@ -140,7 +140,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       // FAQ translations
       faq_title: '❓ Часті запитання',
-      faq_q1: 'Чи цей генератор безкоштовний?',
+      faq_q1: 'Цей генератор безкоштовний?',
       faq_a1:
         'Так! Це повністю безкоштовний інструмент з відкритим кодом без жодних обмежень. Перегляньте вихідний код на GitHub: https://github.com/ovcharovcoder/wp-password-generator',
       faq_q2: 'Чим цей генератор відрізняється від інших?',
