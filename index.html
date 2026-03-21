@@ -71,10 +71,9 @@
           <div class="step" data-step="1">
             <div class="step-marker">
               <span class="step-number">1</span>
-              <span class="step-icon">✏️</span>
             </div>
             <div class="step-content">
-              <h4 data-i18n="step1_title">Введіть назву проекту</h4>
+              <h4 data-i18n="step1_title">Введіть назву проєкту</h4>
               <p data-i18n="step1_desc">
                 Наприклад: мій сайт, мій блог (можна кирилицею)
               </p>
@@ -83,17 +82,15 @@
           <div class="step" data-step="2">
             <div class="step-marker">
               <span class="step-number">2</span>
-              <span class="step-icon">⚙️</span>
             </div>
             <div class="step-content">
               <h4 data-i18n="step2_title">Виберіть тип пароля</h4>
-              <p data-i18n="step2_desc">Простий або сильний (12 символів)</p>
+              <p data-i18n="step2_desc">Простий або сильний (16 символів)</p>
             </div>
           </div>
           <div class="step" data-step="3">
             <div class="step-marker">
               <span class="step-number">3</span>
-              <span class="step-icon">🔄</span>
             </div>
             <div class="step-content">
               <h4 data-i18n="step3_title">Натисніть "Згенерувати"</h4>
@@ -103,7 +100,6 @@
           <div class="step" data-step="4">
             <div class="step-marker">
               <span class="step-number">4</span>
-              <span class="step-icon">📋</span>
             </div>
             <div class="step-content">
               <h4 data-i18n="step4_title">Скопіюйте або експортуйте</h4>
@@ -143,7 +139,7 @@
           </label>
         </div>
         <div class="password-note">
-          <span data-i18n="password_note">⚡ Довжина пароля: 12 символів</span>
+          <span data-i18n="password_note">Довжина пароля: 16 символів</span>
         </div>
       </div>
 
@@ -154,22 +150,19 @@
           <div class="result-item">
             <span class="label" data-i18n="db_name">Назва БД:</span>
             <code id="db-name">lifetime_db</code>
-            <button class="copy-btn" data-copy="db-name" data-i18n="copy_btn">
-              📋 Копіювати
+            <button class="copy-btn" data-copy="db-name" data-i18n="copy_btn">Копіювати
             </button>
           </div>
           <div class="result-item">
             <span class="label" data-i18n="db_user">Ім'я користувача:</span>
             <code id="db-user">lifetime_user</code>
-            <button class="copy-btn" data-copy="db-user" data-i18n="copy_btn">
-              📋 Копіювати
+            <button class="copy-btn" data-copy="db-user" data-i18n="copy_btn">Копіювати
             </button>
           </div>
           <div class="result-item">
             <span class="label" data-i18n="db_password">Пароль:</span>
             <code id="db-pass">453hs89w5h</code>
-            <button class="copy-btn" data-copy="db-pass" data-i18n="copy_btn">
-              📋 Копіювати
+            <button class="copy-btn" data-copy="db-pass" data-i18n="copy_btn">Копіювати
             </button>
             <button
               id="refresh-db-pass"
@@ -200,22 +193,19 @@
           <div class="result-item">
             <span class="label" data-i18n="wp_site">Назва сайту:</span>
             <code id="wp-site">lifetime-site</code>
-            <button class="copy-btn" data-copy="wp-site" data-i18n="copy_btn">
-              📋 Копіювати
+            <button class="copy-btn" data-copy="wp-site" data-i18n="copy_btn">Копіювати
             </button>
           </div>
           <div class="result-item">
             <span class="label" data-i18n="wp_user">Ім'я користувача:</span>
             <code id="wp-user">lifetime-admin</code>
-            <button class="copy-btn" data-copy="wp-user" data-i18n="copy_btn">
-              📋 Копіювати
+            <button class="copy-btn" data-copy="wp-user" data-i18n="copy_btn">Копіювати
             </button>
           </div>
           <div class="result-item">
             <span class="label" data-i18n="wp_password">Пароль:</span>
             <code id="wp-pass">123еs87w4x</code>
-            <button class="copy-btn" data-copy="wp-pass" data-i18n="copy_btn">
-              📋 Копіювати
+            <button class="copy-btn" data-copy="wp-pass" data-i18n="copy_btn">Копіювати
             </button>
             <button
               id="refresh-wp-pass"
@@ -253,8 +243,7 @@ FLUSH PRIVILEGES;
                 </pre
           >
           <div class="code-section-footer">
-            <button id="copy-sql" class="copy-btn" data-i18n="copy_sql">
-              📋 Скопіювати SQL
+            <button id="copy-sql" class="copy-btn" data-i18n="copy_sql">Скопіювати SQL
             </button>
           </div>
         </div>
@@ -283,14 +272,20 @@ define( 'DB_COLLATE', '' );
                 </pre
           >
           <div class="code-section-footer">
-            <button id="copy-wp-config" class="copy-btn" data-i18n="copy_wp">
-              📋 Скопіювати wp-config.php
+            <button id="copy-wp-config" class="copy-btn" data-i18n="copy_wp">Скопіювати wp-config.php
             </button>
           </div>
         </div>
       </div>
 
-      <!-- NEW: .htaccess and robots.txt blocks -->
+      <div class="footer-note">
+        <span class="tip-icon">💡</span>
+        <p data-i18n="footer_note">Просто скопіюйте SQL у phpMyAdmin, а фрагмент для wp-config.php
+          вставте у файл wp-config.php вашого WordPress сайту.
+        </p>
+      </div>
+
+      <!-- .htaccess and robots.txt blocks -->
       <div class="code-blocks">
         <!-- .htaccess fragment -->
         <div class="code-section">
@@ -339,11 +334,9 @@ RedirectMatch 403 /\..*$
     Header set X-XSS-Protection "1; mode=block"
     Header set Referrer-Policy "strict-origin-when-cross-origin"
 </IfModule>
-                </pre
-          >
+        </pre>
           <div class="code-section-footer">
-            <button id="copy-htaccess" class="copy-btn" data-i18n="copy_htaccess">
-              📋 Скопіювати .htaccess
+            <button id="copy-htaccess" class="copy-btn" data-i18n="copy_htaccess">Скопіювати .htaccess
             </button>
           </div>
         </div>
@@ -383,8 +376,7 @@ Sitemap: https://yourdomain.com/sitemap.xml
                 </pre
           >
           <div class="code-section-footer">
-            <button id="copy-robots" class="copy-btn" data-i18n="copy_robots">
-              📋 Скопіювати robots.txt
+            <button id="copy-robots" class="copy-btn" data-i18n="copy_robots">Скопіювати robots.txt
             </button>
           </div>
         </div>
@@ -393,17 +385,64 @@ Sitemap: https://yourdomain.com/sitemap.xml
       <!-- Export to TXT button -->
       <div class="export-section">
         <button id="export-txt" class="export-btn">
-          <span class="btn-icon">📄</span>
           <span data-i18n="export_txt">Експорт у TXT</span>
         </button>
       </div>
 
-      <div class="footer-note">
-        <p data-i18n="footer_note">
-          ⚡ Просто скопіюйте SQL у phpMyAdmin, а фрагмент для wp-config.php
-          вставте у файл wp-config.php вашого WordPress сайту.
-        </p>
+    <!-- FAQ Accordion Section -->
+<div class="faq-section">
+  <h3 data-i18n="faq_title">❓ Часті запитання</h3>
+  <div class="faq-accordion">
+    <div class="faq-item">
+      <div class="faq-question">
+        <span class="faq-icon">🆓</span>
+        <span data-i18n="faq_q1">Чи цей генератор безкоштовний?</span>
+        <span class="accordion-icon">▼</span>
       </div>
+      <div class="faq-answer" data-i18n="faq_a1"></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">
+        <span class="faq-icon">✨</span>
+        <span data-i18n="faq_q2">Чим цей генератор відрізняється від інших?</span>
+        <span class="accordion-icon">▼</span>
+      </div>
+      <div class="faq-answer" data-i18n="faq_a2"></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">
+        <span class="faq-icon">🔒</span>
+        <span data-i18n="faq_q3">Наскільки безпечні згенеровані паролі?</span>
+        <span class="accordion-icon">▼</span>
+      </div>
+      <div class="faq-answer" data-i18n="faq_a3"></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">
+        <span class="faq-icon">💻</span>
+        <span data-i18n="faq_q4">Чи потрібно щось встановлювати?</span>
+        <span class="accordion-icon">▼</span>
+      </div>
+      <div class="faq-answer" data-i18n="faq_a4"></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">
+        <span class="faq-icon">🔄</span>
+        <span data-i18n="faq_q5">Чи можна використовувати для існуючих WordPress сайтів?</span>
+        <span class="accordion-icon">▼</span>
+      </div>
+      <div class="faq-answer" data-i18n="faq_a5"></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">
+        <span class="faq-icon">📁</span>
+        <span data-i18n="faq_q6">Які файли створює генератор?</span>
+        <span class="accordion-icon">▼</span>
+      </div>
+      <div class="faq-answer" data-i18n="faq_a6"></div>
+    </div>
+  </div>
+</div>
 
       <!-- Footer -->
       <footer class="site-footer">
