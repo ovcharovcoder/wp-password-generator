@@ -486,7 +486,6 @@ ${translations[currentLang].sql_comment_important}`;
     }
   }
 
-  // ОНОВЛЕНО: скорочений wp-config.php без зайвих рядків
   function updateWpConfigSummary(dbName, dbUser, dbPass) {
     if (wpConfigSummaryEl) {
       wpConfigSummaryEl.textContent = `<?php
