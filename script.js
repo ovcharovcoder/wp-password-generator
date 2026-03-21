@@ -20,6 +20,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
   const sqlSummaryEl = document.getElementById('sql-summary');
   const wpConfigSummaryEl = document.getElementById('wp-config-summary');
+  const htaccessSummaryEl = document.getElementById('htaccess-summary');
+  const robotsSummaryEl = document.getElementById('robots-summary');
 
   const refreshDbPass = document.getElementById('refresh-db-pass');
   const refreshWpPass = document.getElementById('refresh-wp-pass');
@@ -88,10 +90,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
       sql_title: '📊 SQL для створення бази даних:',
       wp_config_title: '🔧 Фрагмент для wp-config.php:',
+      htaccess_title: '🛡️ .htaccess (Безпека)',
+      robots_title: '🤖 robots.txt (SEO та безпека)',
 
       copy_btn: '📋 Копіювати',
       copy_sql: '📋 Скопіювати SQL',
       copy_wp: '📋 Скопіювати wp-config.php',
+      copy_htaccess: '📋 Скопіювати .htaccess',
+      copy_robots: '📋 Скопіювати robots.txt',
 
       export_txt: 'Експорт у TXT',
       footer_note:
@@ -129,6 +135,8 @@ document.addEventListener('DOMContentLoaded', function () {
       export_wp_pass: 'WP Пароль:',
       export_sql: 'SQL ЗАПИТ',
       export_wp_config: 'WP-CONFIG.PHP',
+      export_htaccess: '.HTACCESS',
+      export_robots: 'ROBOTS.TXT',
     },
 
     en: {
@@ -167,10 +175,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
       sql_title: '📊 SQL for database creation:',
       wp_config_title: '🔧 wp-config.php snippet:',
+      htaccess_title: '🛡️ .htaccess (Security)',
+      robots_title: '🤖 robots.txt (SEO & Security)',
 
       copy_btn: '📋 Copy',
       copy_sql: '📋 Copy SQL',
       copy_wp: '📋 Copy wp-config.php',
+      copy_htaccess: '📋 Copy .htaccess',
+      copy_robots: '📋 Copy robots.txt',
 
       export_txt: 'Export TXT',
       footer_note:
@@ -207,6 +219,8 @@ document.addEventListener('DOMContentLoaded', function () {
       export_wp_pass: 'WP Password:',
       export_sql: 'SQL QUERY',
       export_wp_config: 'WP-CONFIG.PHP',
+      export_htaccess: '.HTACCESS',
+      export_robots: 'ROBOTS.TXT',
     },
   };
 
@@ -467,7 +481,97 @@ document.addEventListener('DOMContentLoaded', function () {
     currentWpPass = data.wpPass;
   }
 
-  // ОНОВЛЕНО: додано WITH GRANT OPTION для повних прав
+  // ===================== STATIC CONTENT =====================
+  function getHtaccessContent() {
+    return `# Protect wp-config.php
+<files wp-config.php>
+    order allow,deny
+    deny from all
+</files>
+
+# Disable directory browsing
+Options -Indexes
+
+# Protect hidden files
+RedirectMatch 403 /\..*$
+
+# Block access to sensitive files
+<FilesMatch "(^#.*#|\\.(php|inc|log|bak|sql|git|svn|htaccess|htpasswd|ini|sh|yml|json|lock|md|txt|dist|editorconfig|gitattributes|gitignore|eslintignore|eslintrc|prettierrc|stylelintrc)$)">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Gzip compression
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/css text/javascript application/javascript application/json
+</IfModule>
+
+# Browser caching
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/jpg "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType text/javascript "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+</IfModule>
+
+# WordPress security headers
+<IfModule mod_headers.c>
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-XSS-Protection "1; mode=block"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>`;
+  }
+
+  function getRobotsContent() {
+    return `# Allow all bots to crawl the site
+User-agent: *
+Allow: /
+
+# Disable access to sensitive directories
+Disallow: /wp-admin/
+Disallow: /wp-includes/
+Disallow: /wp-content/plugins/
+Disallow: /wp-content/themes/
+Disallow: /wp-content/uploads/
+Disallow: /wp-config.php
+Disallow: /readme.html
+Disallow: /license.txt
+Disallow: /xmlrpc.php
+Disallow: /wp-signup.php
+Disallow: /wp-activate.php
+Disallow: /wp-login.php
+Disallow: /wp-register.php
+
+# Allow access to necessary resources
+Allow: /wp-admin/admin-ajax.php
+Allow: /wp-content/uploads/
+
+# Sitemap location (replace with your actual sitemap URL)
+Sitemap: https://yourdomain.com/sitemap.xml
+
+# Crawl delay (optional - helps reduce server load)
+# Crawl-delay: 1`;
+  }
+
+  function updateHtaccess() {
+    if (htaccessSummaryEl) {
+      htaccessSummaryEl.textContent = getHtaccessContent();
+    }
+  }
+
+  function updateRobots() {
+    if (robotsSummaryEl) {
+      robotsSummaryEl.textContent = getRobotsContent();
+    }
+  }
+
+  // ===================== SQL & WP-CONFIG =====================
   function updateSQLSummary(dbName, dbUser, dbPass) {
     if (sqlSummaryEl) {
       sqlSummaryEl.textContent = `${translations[currentLang].sql_comment_create}
@@ -535,7 +639,11 @@ ${getSaltsBlock()}`;
       projectData.dbPass,
     );
 
-    // 5. Updating difficulty indicators
+    // 5. Update static files (no changes needed)
+    updateHtaccess();
+    updateRobots();
+
+    // 6. Updating difficulty indicators
     updatePasswordStrengthIndicators();
   }
 
@@ -636,6 +744,7 @@ ${getSaltsBlock()}`;
         currentDbPass,
       );
     }
+    // Static files don't need language update
   }
 
   // ===================== COPY з FALLBACK =====================
@@ -715,6 +824,16 @@ ${t.export_wp_config}
 ${wpConfigSummaryEl.textContent}
 
 ========================================
+${t.export_htaccess}
+========================================
+${htaccessSummaryEl.textContent}
+
+========================================
+${t.export_robots}
+========================================
+${robotsSummaryEl.textContent}
+
+========================================
 Generated by WP Password Generator
 (https://ovcharovcoder.github.io/wp-password-generator)
 © 2026 Andrii Ovcharov. All rights reserved.
@@ -770,6 +889,18 @@ Generated by WP Password Generator
     .getElementById('copy-wp-config')
     ?.addEventListener('click', function () {
       copyToClipboard(wpConfigSummaryEl.textContent, this);
+    });
+
+  document
+    .getElementById('copy-htaccess')
+    ?.addEventListener('click', function () {
+      copyToClipboard(htaccessSummaryEl.textContent, this);
+    });
+
+  document
+    .getElementById('copy-robots')
+    ?.addEventListener('click', function () {
+      copyToClipboard(robotsSummaryEl.textContent, this);
     });
 
   generateBtn?.addEventListener('click', generateAll);
