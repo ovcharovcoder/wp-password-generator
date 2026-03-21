@@ -482,7 +482,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // ===================== STATIC CONTENT =====================
-  // ОНОВЛЕНО: розширений .htaccess з повним захистом
+  // File .htaccess with full protection
   function getHtaccessContent() {
     return `# =========================
 # CORE SECURITY
