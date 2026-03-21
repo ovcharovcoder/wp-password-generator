@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function () {
       password_settings: '🔐 Налаштування паролів:',
       simple: 'Простий (тільки літери та цифри)',
       strong: 'Сильний (з спецсимволами)',
-      password_note: '⚡ Довжина пароля: 16 символів',
+      password_note: 'Довжина пароля: 16 символів',
 
       db_title: 'Налаштування бази даних (MySQL)',
       db_name: 'Назва БД:',
@@ -93,15 +93,15 @@ document.addEventListener('DOMContentLoaded', function () {
       htaccess_title: '🛡️ .htaccess (Безпека)',
       robots_title: '🤖 robots.txt (SEO та безпека)',
 
-      copy_btn: '📋 Копіювати',
-      copy_sql: '📋 Скопіювати SQL',
-      copy_wp: '📋 Скопіювати wp-config.php',
-      copy_htaccess: '📋 Скопіювати .htaccess',
-      copy_robots: '📋 Скопіювати robots.txt',
+      copy_btn: 'Копіювати',
+      copy_sql: 'Скопіювати SQL',
+      copy_wp: 'Скопіювати wp-config.php',
+      copy_htaccess: 'Скопіювати .htaccess',
+      copy_robots: 'Скопіювати robots.txt',
 
       export_txt: 'Експорт у TXT',
       footer_note:
-        '⚡ Просто скопіюйте SQL у phpMyAdmin, а фрагмент для wp-config.php вставте у файл wp-config.php вашого WordPress сайту.',
+        'Просто скопіюйте SQL у phpMyAdmin, а фрагмент для wp-config.php вставте у файл wp-config.php вашого WordPress сайту.',
       footer_made_for: 'Створено з ❤️ для WordPress розробників',
       copyright_year: '© 2026',
       copyright_rights: 'Всі права захищено.',
@@ -137,6 +137,37 @@ document.addEventListener('DOMContentLoaded', function () {
       export_wp_config: 'WP-CONFIG.PHP',
       export_htaccess: '.HTACCESS',
       export_robots: 'ROBOTS.TXT',
+
+      // FAQ translations
+      faq_title: '❓ Часті запитання',
+      faq_q1: 'Чи цей генератор безкоштовний?',
+      faq_a1:
+        'Так! Це повністю безкоштовний інструмент з відкритим кодом без жодних обмежень. Перегляньте вихідний код на GitHub: https://github.com/ovcharovcoder/wp-password-generator',
+      faq_q2: 'Чим цей генератор відрізняється від інших?',
+      faq_a2: [
+        '🔐 Криптографічна випадковість (crypto.getRandomValues)',
+        '🎲 Унікальні 6-символьні суфікси для кожного компонента',
+        '🔑 16-символьні паролі з гарантованою різноманітністю',
+        '📄 Генерація .htaccess та robots.txt файлів',
+        '🛡️ Повні Security Keys для WordPress (8 унікальних солей)',
+        "💉 Захист від SQL ін'єкцій",
+      ],
+      faq_q3: 'Наскільки безпечні згенеровані паролі?',
+      faq_a3:
+        'Дуже безпечні! Ми використовуємо криптографічно безпечний генератор випадкових чисел (crypto.getRandomValues), а не Math.random(). Паролі мають довжину 16 символів і включають великі та малі літери, цифри й спеціальні символи. Це дає величезну кількість можливих комбінацій, що робить їх практично неможливими для підбору.',
+      faq_q4: 'Чи потрібно щось встановлювати?',
+      faq_a4:
+        'Встановлення не потрібне! Це веб-інструмент, який працює у вашому браузері. Жодні дані не відправляються на сервер – усе відбувається локально на вашому пристрої.',
+      faq_q5: 'Чи можна використовувати для існуючих WordPress сайтів?',
+      faq_a5:
+        'Так! Ви можете використовувати цей інструмент для створення нових облікових даних при міграції бази даних, оновлення wp-config.php або для налаштування безпечних .htaccess та robots.txt на будь-якому існуючому WordPress сайті.',
+      faq_q6: 'Які файли створює генератор?',
+      faq_a6: [
+        '📊 SQL – скрипт створення бази даних',
+        '🔧 wp-config.php – конфігурація WordPress з security keys',
+        '🛡️ .htaccess – правила безпеки Apache та оптимізація',
+        '🤖 robots.txt – конфігурація SEO та безпеки',
+      ],
     },
 
     en: {
@@ -161,7 +192,7 @@ document.addEventListener('DOMContentLoaded', function () {
       password_settings: '🔐 Password settings:',
       simple: 'Simple (letters and numbers only)',
       strong: 'Strong (with special chars)',
-      password_note: '⚡ Password length: 16 characters',
+      password_note: 'Password length: 16 characters',
 
       db_title: 'Database settings (MySQL)',
       db_name: 'DB Name:',
@@ -178,15 +209,15 @@ document.addEventListener('DOMContentLoaded', function () {
       htaccess_title: '🛡️ .htaccess (Security)',
       robots_title: '🤖 robots.txt (SEO & Security)',
 
-      copy_btn: '📋 Copy',
-      copy_sql: '📋 Copy SQL',
-      copy_wp: '📋 Copy wp-config.php',
-      copy_htaccess: '📋 Copy .htaccess',
-      copy_robots: '📋 Copy robots.txt',
+      copy_btn: 'Copy',
+      copy_sql: 'Copy SQL',
+      copy_wp: 'Copy wp-config.php',
+      copy_htaccess: 'Copy .htaccess',
+      copy_robots: 'Copy robots.txt',
 
       export_txt: 'Export TXT',
       footer_note:
-        '⚡ Simply copy the SQL into phpMyAdmin and paste the snippet for wp-config.php into the wp-config.php file of your WordPress site.',
+        'Simply copy the SQL into phpMyAdmin and paste the snippet for wp-config.php into the wp-config.php file of your WordPress site.',
       footer_made_for: 'Made with ❤️ for WordPress developers',
       copyright_year: '© 2026',
       copyright_rights: 'All rights reserved.',
@@ -221,6 +252,37 @@ document.addEventListener('DOMContentLoaded', function () {
       export_wp_config: 'WP-CONFIG.PHP',
       export_htaccess: '.HTACCESS',
       export_robots: 'ROBOTS.TXT',
+
+      // FAQ translations
+      faq_title: '❓ FAQ',
+      faq_q1: 'Is this generator free?',
+      faq_a1:
+        'Yes! This is a completely free and open-source tool. You can use it without any limitations. Check out the source code on GitHub: https://github.com/ovcharovcoder/wp-password-generator',
+      faq_q2: 'What makes this generator different from others?',
+      faq_a2: [
+        '🔐 Cryptographic randomness (crypto.getRandomValues)',
+        '🎲 Unique 6-character suffixes for each component',
+        '🔑 16-character passwords with guaranteed diversity',
+        '📄 Generates .htaccess and robots.txt files',
+        '🛡️ Full WordPress Security Keys (8 salts)',
+        '💉 SQL injection protection',
+      ],
+      faq_q3: 'How secure are the generated passwords?',
+      faq_a3:
+        'Very secure! We use a cryptographically secure random number generator (crypto.getRandomValues), not Math.random(). Passwords are 16 characters long and include uppercase and lowercase letters, numbers, and special characters. This results in an enormous number of possible combinations, making them practically impossible to brute-force.',
+      faq_q4: 'Do I need to install anything?',
+      faq_a4:
+        'No installation needed! This is a web-based tool that runs entirely in your browser. No data is sent to any server – everything happens locally on your device.',
+      faq_q5: 'Can I use this for existing WordPress sites?',
+      faq_a5:
+        'Absolutely! You can use this tool to generate new credentials for database migration, update wp-config.php, or set up secure .htaccess and robots.txt files on any existing WordPress site.',
+      faq_q6: 'What files does the generator create?',
+      faq_a6: [
+        '📊 SQL – database creation script',
+        '🔧 wp-config.php – WordPress configuration with security keys',
+        '🛡️ .htaccess – Apache security rules and optimization',
+        '🤖 robots.txt – SEO and security configuration',
+      ],
     },
   };
 
@@ -482,7 +544,6 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // ===================== STATIC CONTENT =====================
-  // File .htaccess with full protection
   function getHtaccessContent() {
     return `# =========================
 # CORE SECURITY
@@ -641,7 +702,7 @@ Sitemap: https://yourdomain.com/sitemap.xml`;
   // ===================== SQL & WP-CONFIG =====================
   function updateSQLSummary(dbName, dbUser, dbPass) {
     if (sqlSummaryEl) {
-      sqlSummaryEl.textContent = `${translations[currentLang].sql_comment_create}
+      sqlSummaryEl.textContent = `${translations.en.sql_comment_create}
 CREATE DATABASE IF NOT EXISTS \`${dbName}\`
   CHARACTER SET utf8mb4
   COLLATE utf8mb4_unicode_ci;
@@ -655,7 +716,7 @@ GRANT ALL PRIVILEGES ON \`${dbName}\`.*
 
 FLUSH PRIVILEGES;
 
-${translations[currentLang].sql_comment_important}`;
+${translations.en.sql_comment_important}`;
     }
   }
 
@@ -775,8 +836,19 @@ ${getSaltsBlock()}`;
 
     document.querySelectorAll('[data-i18n]').forEach(element => {
       const key = element.getAttribute('data-i18n');
-      if (translations[lang] && translations[lang][key]) {
-        element.textContent = translations[lang][key];
+      const value = translations[lang]?.[key];
+
+      if (!value) return;
+
+      // Якщо масив → список
+      if (Array.isArray(value)) {
+        element.innerHTML = value
+          .map(item => `<div class="faq-list-item">${item}</div>`)
+          .join('');
+      }
+      // Якщо текст
+      else {
+        element.textContent = value;
       }
     });
 
@@ -792,18 +864,9 @@ ${getSaltsBlock()}`;
     });
 
     updatePasswordStrengthIndicators();
-    if (dbNameEl.textContent) {
-      updateSQLSummary(
-        dbNameEl.textContent,
-        dbUserEl.textContent,
-        currentDbPass,
-      );
-      updateWpConfigSummary(
-        dbNameEl.textContent,
-        dbUserEl.textContent,
-        currentDbPass,
-      );
-    }
+
+    // Важливо: при зміні мови НЕ оновлюємо SQL та wp-config,
+    // щоб вони залишалися англійською
   }
 
   // ===================== COPY з FALLBACK =====================
@@ -849,7 +912,7 @@ ${getSaltsBlock()}`;
     const date = new Date().toLocaleString(
       currentLang === 'uk' ? 'uk-UA' : 'en-US',
     );
-    const t = translations[currentLang];
+    const t = translations.en; // ЗАВЖДИ англійська для експорту
     const safeName = sanitizeProjectName(projectInput.value || 'project');
 
     const content = `========================================
@@ -985,7 +1048,31 @@ Generated by WP Password Generator
     btn?.addEventListener('click', () => changeLanguage(btn.dataset.lang));
   });
 
+  // ===================== FAQ ACCORDION =====================
+  function initFaqAccordion() {
+    const faqItems = document.querySelectorAll('.faq-item');
+
+    faqItems.forEach(item => {
+      const question = item.querySelector('.faq-question');
+
+      if (question) {
+        question.addEventListener('click', () => {
+          // Close other items
+          faqItems.forEach(otherItem => {
+            if (otherItem !== item && otherItem.classList.contains('active')) {
+              otherItem.classList.remove('active');
+            }
+          });
+
+          // Toggle current item
+          item.classList.toggle('active');
+        });
+      }
+    });
+  }
+
   // ===================== INIT =====================
   changeLanguage('en');
   generateAll();
+  initFaqAccordion();
 });
