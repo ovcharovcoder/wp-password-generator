@@ -112,7 +112,7 @@ Every developer faces the need to:
   <p><em>Main screen with modern futuristic design</em></p>
   
   <img src="screenshots/generation.png" alt="Generation Process" width="800"/>
-  <p><em>Generated credentials for "lactazic" project</em></p>
+  <p><em>Generated credentials for "project" project</em></p>
   
   <img src="screenshots/export.png" alt="Export" width="800"/>
   <p><em>Complete TXT export with all configuration files</em></p>
