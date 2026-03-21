@@ -121,12 +121,12 @@ document.addEventListener('DOMContentLoaded', function () {
       export_project: 'Проєкт:',
       export_db_settings: 'НАЛАШТУВАННЯ БАЗИ ДАНИХ',
       export_db_name: 'Назва БД:',
-      export_db_user: "Ім'я користувача:",
-      export_db_pass: 'Пароль',
+      export_db_user: 'Користувач БД:',
+      export_db_pass: 'Пароль БД:',
       export_wp_settings: 'НАЛАШТУВАННЯ WORDPRESS',
       export_wp_site: 'Назва сайту:',
-      export_wp_user: "Ім'я користувача:",
-      export_wp_pass: 'Пароль:',
+      export_wp_user: 'WP Користувач:',
+      export_wp_pass: 'WP Пароль:',
       export_sql: 'SQL ЗАПИТ',
       export_wp_config: 'WP-CONFIG.PHP',
     },
@@ -199,12 +199,12 @@ document.addEventListener('DOMContentLoaded', function () {
       export_project: 'Project:',
       export_db_settings: 'DATABASE SETTINGS',
       export_db_name: 'DB Name:',
-      export_db_user: 'Username:',
-      export_db_pass: 'Password:',
+      export_db_user: 'DB Username:',
+      export_db_pass: 'DB Password:',
       export_wp_settings: 'WORDPRESS SETTINGS',
-      export_wp_site: 'Site Title:',
-      export_wp_user: 'Username:',
-      export_wp_pass: 'Password:',
+      export_wp_site: 'Site URL:',
+      export_wp_user: 'WP Username:',
+      export_wp_pass: 'WP Password:',
       export_sql: 'SQL QUERY',
       export_wp_config: 'WP-CONFIG.PHP',
     },
@@ -467,6 +467,7 @@ document.addEventListener('DOMContentLoaded', function () {
     currentWpPass = data.wpPass;
   }
 
+  // ОНОВЛЕНО: додано WITH GRANT OPTION для повних прав
   function updateSQLSummary(dbName, dbUser, dbPass) {
     if (sqlSummaryEl) {
       sqlSummaryEl.textContent = `${translations[currentLang].sql_comment_create}
@@ -477,8 +478,10 @@ CREATE DATABASE IF NOT EXISTS \`${dbName}\`
 CREATE USER IF NOT EXISTS \`${dbUser}\`@'localhost'
   IDENTIFIED BY '${escapeSQL(dbPass)}';
 
+-- Grant all privileges with grant option (full control)
 GRANT ALL PRIVILEGES ON \`${dbName}\`.*
-  TO \`${dbUser}\`@'localhost';
+  TO \`${dbUser}\`@'localhost'
+  WITH GRANT OPTION;
 
 FLUSH PRIVILEGES;
 
