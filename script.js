@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // ===================== CRYPTO API CHECK =====================
   if (!window.crypto || !window.crypto.getRandomValues) {
     alert(
-      'Ваш браузер не підтримує сучасні криптографічні функції. Будь ласка, оновіть браузер.',
+      'Your browser does not support modern cryptographic features. Please update your browser.',
     );
     throw new Error('Crypto API not supported');
   }
@@ -744,7 +744,6 @@ ${getSaltsBlock()}`;
         currentDbPass,
       );
     }
-    // Static files don't need language update
   }
 
   // ===================== COPY з FALLBACK =====================
