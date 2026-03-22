@@ -181,6 +181,14 @@ This project is licensed under the MIT License – see the [LICENSE](LICENSE) fi
 
 ---
 
+## 📅 Release History
+
+| Version | Date | Description |
+|---------|------|-------------|
+| 1.0.0 | March 20, 2026 | Initial release |
+
+---
+
 ## 👤 Author
 
 <img 
