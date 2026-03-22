@@ -184,7 +184,7 @@ This project is licensed under the MIT License – see the [LICENSE](LICENSE) fi
 ## 👤 Author
 
 <img 
-  src="https://raw.githubusercontent.com/ovcharovcoder/devfoundry-umber-theme/main/images/avatar.png"
+  src="https://raw.githubusercontent.com/ovcharovcoder/wp-password-generator/main/screenshots/avatar.png"
   alt="Andrii Ovcharov"
   width="60"
 />
